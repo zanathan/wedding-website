@@ -230,10 +230,6 @@
         border-radius: 0;
     }
 
-    #visual-story .img-wrap {
-        border-radius: 0;
-    }
-
     #map-content-wrapper {
         margin-bottom: 40px;
     }
@@ -262,14 +258,6 @@
     }
 
     #eng-pics .img-wrap i {
-        font-size: 25px;
-        position: absolute;
-        width: 25px;
-        height: 25px;
-        top: 10px;
-        right: 10px; }
-
-    #visual-story .img-wrap i {
         font-size: 25px;
         position: absolute;
         width: 25px;
