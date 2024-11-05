@@ -16,7 +16,7 @@
 	border-color: $accent-color;
 	background-color: $accent-color;
 }
-.btn-black {
+.btn-rsvp {
 	font-size: 13px;
 	border: solid 2px;
 	-moz-border-radius: 40px;
@@ -25,9 +25,9 @@
 	display: inline-block;
 	text-transform: uppercase;
 }
-.btn-black:hover, .btn-black:focus {
-	color: $black-color;
-	border-color: $black-color;
+.btn-rsvp:hover, .btn-rsvp:focus {
+	color: $accent-color;
+	border-color: $accent-color;
 	background-color: $black-color;
 }
 .btn-white {
@@ -38,6 +38,8 @@
 	border-radius: 40px;
 	display: inline-block;
 	border-color: $txt-light;
+	color: $black-color;
+	border-color: $black-color;
 }
 .btn-white:hover, .btn-white:focus {
 	color: $white-color;
