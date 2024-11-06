@@ -214,7 +214,9 @@ $(document).ready(function () {
 
         $('#alert-wrapper').html(alert_markup('info', 'Checking invite code'));
 
-        if (!validate_code($('#invite_code').val())) {
+        var valid_code = validate_code($('#invite_code').val())
+
+        if (valid_code === false) {
             $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> Your invite code is incorrect.'));
         } else {
             window.location.href = "pages/rsvp.html?id="+encodeURIComponent($('#invite_code').val());
@@ -234,21 +236,23 @@ function alert_markup(alert_type, msg) {
 var validate_code = function (code) {
     var app_url = "https://script.google.com/macros/s/AKfycbzwVds8pd4Xjo2MYaHEr0mtuRNUdr1ncHV5wVdnvh-dsALVMmCGtuNZouH823QO5Bw/exec";
     app_url = app_url + "?code=" + code + "&verifyonly=" + true;
-    return $.ajax({
+    var valid_code = false;
+    $.ajax({
         url: app_url,
         method: "GET",
         async: false,
         dataType: "json",
         success: function (response) {
-            if (response.valid) {
-                return true;
+            if (response.valid === true) {
+                valid_code = true;
             } else {
-                return false;
+                valid_code = false;
             }
         },
         error: function () {
             alert("The form failed. Please let Jonathan know and try again later.")
-            return false
+            valid_code = false
         }
     });
+    return valid_code;
 };
