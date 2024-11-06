@@ -64,7 +64,7 @@
 <section class="hero">
     <section class="navigation">
         <header>
-            <div class="header-content">
+            <div class="header-content fancybox">
                 <div class="logo"><a href="#"><img src="../img/logo.png" alt="Logo"></a></div>
                 <div class="header-nav">
                     <nav>
@@ -95,12 +95,12 @@
             </div>
         </div>
     </div>
-    <div class="down-arrow floating-arrow"><a href="#eng-pics"><i class="fa fa-angle-down"></i></a></div>
+    <div class="down-arrow floating-arrow"><a href="#rsvp-response"><i class="fa fa-angle-down"></i></a></div>
 </section>
  
 
 <section id="rsvp-response" class="section-padding">
-    <div>
+    <div class="fancybox">
         <h3>
             RSVP
         </h3>
@@ -130,7 +130,37 @@
 <script src="../js/jquery.mb.YTPlayer.min.js"></script>
 <script src="../js/vendor/ouical.js"></script>
 <script src="../js/scripts.min.js"></script>
+<script src="../js/scripts.min.js"></script>
 <script>
+    var data_div = function (valid_data){
+        var innerHtml = '';
+        valid_data.data.forEach(function (item, index) {
+            var full_name = item.name + " " + item.surname;
+            innerHtml += `<div class="col-md-2">` + full_name + `</div>`
+        });
+        return innerHtml;
+    }
+
+    var data_from_code = function (code) {
+        var app_url = "https://script.google.com/macros/s/AKfycbxm6_A_3_aEvw007vS7XNw240a8fvH_-n5F-EiXNw7QuEsTqzDthWlHozVWyQ1w0rc/exec";
+        app_url = app_url + "?code=" + code + "&verifyonly=" + false;
+        var data_response = {};
+        $.ajax({
+            url: app_url,
+            method: "GET",
+            async: false,
+            dataType: "json",
+            success: function (response) {
+                data_response = response
+            },
+            error: function () {
+                alert("The form failed. Please let Jonathan know and try again later.")
+                data_response = {}
+            }
+        });
+        return data_response;
+    };
+
     window.onload = function () {
         var url = document.location.href,
             params = url.split('?')[1].split('&'),
@@ -139,9 +169,14 @@
              tmp = params[i].split('=');
              data[tmp[0]] = tmp[1];
         }
-        document.getElementById('here').innerHTML = data.id;
-    }
-    </script>  
+        var valid_data = data_from_code(data.id);
+        var innerHtml = "That is not a valid code!"
+        if (valid_data.valid === true){
+            innerHtml = data_div(valid_data);
+        }
+        document.getElementById('here').innerHTML = innerHtml;
+    };
+</script>  
 <!-- Google Analytics -->
 <script>
     (function (i, s, o, g, r, a, m) {
