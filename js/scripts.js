@@ -232,7 +232,7 @@ function alert_markup(alert_type, msg) {
 
 // Validate Code
 var validate_code = function (code) {
-    var app_url = "https://script.google.com/macros/s/AKfycbwYNbbG7srIs733XgnW6nTDv0xQILJITLczr3XEQ8t1NSH37tmuKm1NGGzpPvzeQlE/exec";
+    var app_url = "https://script.google.com/macros/s/AKfycbzwVds8pd4Xjo2MYaHEr0mtuRNUdr1ncHV5wVdnvh-dsALVMmCGtuNZouH823QO5Bw/exec";
     app_url = app_url + "?code=" + code + "&verifyonly=" + true;
     return $.ajax({
         url: app_url,
