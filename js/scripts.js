@@ -214,7 +214,7 @@ $(document).ready(function () {
 
         $('#alert-wrapper').html(alert_markup('info', 'Checking invite code'));
 
-        if (!MD5($('#invite_code').val())) {
+        if (!validate_code($('#invite_code').val())) {
             $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> Your invite code is incorrect.'));
         } else {
             window.location.href = "pages/rsvp.html?id="+encodeURIComponent($('#invite_code').val());
@@ -230,8 +230,25 @@ function alert_markup(alert_type, msg) {
     return '<div class="alert alert-' + alert_type + '" role="alert">' + msg + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button></div>';
 }
 
-// MD5 Encoding
-var MD5 = function (string) {
-
-    return true;
+// Validate Code
+var validate_code = function (code) {
+    var app_url = "https://script.google.com/macros/s/AKfycbwYNbbG7srIs733XgnW6nTDv0xQILJITLczr3XEQ8t1NSH37tmuKm1NGGzpPvzeQlE/exec";
+    app_url = app_url + "?code=" + code + "&verifyonly=" + true;
+    return $.ajax({
+        url: app_url,
+        method: "GET",
+        async: false,
+        dataType: "json",
+        success: function (response) {
+            if (response.valid) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        error: function () {
+            alert("The form failed. Please let Jonathan know and try again later.")
+            return false
+        }
+    });
 };
