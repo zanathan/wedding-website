@@ -234,7 +234,7 @@ function alert_markup(alert_type, msg) {
 
 // Validate Code
 var validate_code = function (code) {
-    var app_url = "https://script.google.com/macros/s/AKfycbxm6_A_3_aEvw007vS7XNw240a8fvH_-n5F-EiXNw7QuEsTqzDthWlHozVWyQ1w0rc/exec";
+    var app_url = "https://script.google.com/macros/s/AKfycbzUZk8uAYwDeFlxtfl2qbB8FglpLC-JdhKo1fmkeGwwd5PksB1AGf8SKALR9yBugfk/exec";
     app_url = app_url + "?code=" + code + "&verifyonly=" + true;
     var valid_code = false;
     $.ajax({

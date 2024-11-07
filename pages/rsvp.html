@@ -99,13 +99,15 @@
 </section>
  
 
-<section id="rsvp-response" class="section-padding">
-    <div class="fancybox">
-        <h3>
-            RSVP
-        </h3>
-        <div id="here">
 
+<section id="rsvp-final" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div id="here">
+                    <img src="../img/fancybox_loading.gif" alt=""/>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -133,16 +135,45 @@
 <script src="../js/scripts.min.js"></script>
 <script>
     var data_div = function (valid_data){
-        var innerHtml = '';
+        var innerHtml = `<form id="rsvp-submission" class="rsvp-submission">
+            `;
         valid_data.data.forEach(function (item, index) {
             var full_name = item.name + " " + item.surname;
-            innerHtml += `<div class="col-md-2">` + full_name + `</div>`
+            console.log(item.rsvp===true);
+            checked="";
+            if(item.rsvp===true){
+                checked = "checked";
+            }
+            innerHtml += `<div class="form-input-group">
+                            ` + full_name + `
+                        </div>
+                        <div class="form-input-group">
+                            <input type="text" name="email" id="email`+index+`"                              
+                                placeholder="Email address" required value="`+item.email+`">
+                        </div>
+                        <div class="form-input-group">
+                            <input type="checkbox" name="rsvp_checkbox" id="rsvp_checkbox`+index+`" title="Tick the box to mark as attending."
+                                required `+checked+`>
+                        </div>
+                        <div class="form-input-group">
+                            <input type="text" name="menu" id="menu`+index+`"
+                                placeholder="Menu" required value="`+item.menu+`">
+                        </div>
+                        <div class="form-input-group">
+                            <input type="text" name="song" id="song`+index+`"
+                                placeholder="Song Request. It probably won't play but if you had a song you want to hear put it here." required value="`+item.song_request+`">
+                        </div>
+                        `
         });
+        innerHtml += `<button class="btn-fill rsvp-btn">
+                            Submit
+                        </button>
+                    </form>`
         return innerHtml;
     }
 
     var data_from_code = function (code) {
-        var app_url = "https://script.google.com/macros/s/AKfycbxm6_A_3_aEvw007vS7XNw240a8fvH_-n5F-EiXNw7QuEsTqzDthWlHozVWyQ1w0rc/exec";
+        var app_url = "https://script.google.com/macros/s/AKfycbzUZk8uAYwDeFlxtfl2qbB8FglpLC-JdhKo1fmkeGwwd5PksB1AGf8SKALR9yBugfk/exec";
         app_url = app_url + "?code=" + code + "&verifyonly=" + false;
         var data_response = {};
         $.ajax({
