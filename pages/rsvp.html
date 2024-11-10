@@ -100,13 +100,13 @@
  
 
 
-<section id="rsvp-final" class="section-padding">
+<section id="rsvp-final" class="rsvp-final text-center">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div id="here">
-                    <img src="../img/fancybox_loading.gif" alt=""/>
-                </div>
+            <h3>RSVP</h3>
+            <div id="validation-code"></div>
+            <div id="here">
+                <img src="../img/fancybox_loading.gif" alt=""/>
             </div>
         </div>
     </div>
@@ -138,42 +138,47 @@
         var innerHtml = `<form id="rsvp-submission" class="rsvp-submission">
             `;
         valid_data.data.forEach(function (item, index) {
-            var full_name = item.name + " " + item.surname;
             console.log(item.rsvp===true);
             checked="";
             if(item.rsvp===true){
                 checked = "checked";
             }
-            innerHtml += `<div class="form-input-group">
-                            ` + full_name + `
+            innerHtml += `<div class="rsvp-submission-input-group">
+                            <input type="text" name="name" id="name-`+index+`"                              
+                                placeholder="Name" required value="`+item.name+`">
                         </div>
-                        <div class="form-input-group">
-                            <input type="text" name="email" id="email`+index+`"                              
+                        <div class="rsvp-submission-input-group">
+                            <input type="text" name="surname" id="surname-`+index+`"                              
+                                placeholder="Surname" required value="`+item.surname+`">
+                        </div>
+                        <div class="rsvp-submission-input-group">
+                            <input type="text" name="email" id="email-`+index+`"                              
                                 placeholder="Email address" required value="`+item.email+`">
                         </div>
-                        <div class="form-input-group">
-                            <input type="checkbox" name="rsvp_checkbox" id="rsvp_checkbox`+index+`" title="Tick the box to mark as attending."
+                        <div class="rsvp-submission-input-group">
+                            <input type="checkbox" name="rsvp_checkbox" id="rsvp-`+index+`" title="Tick the box to mark as attending."
                                 required `+checked+`>
                         </div>
-                        <div class="form-input-group">
-                            <input type="text" name="menu" id="menu`+index+`"
+                        <div class="rsvp-submission-input-group">
+                            <input type="text" name="menu" id="menu-`+index+`"
                                 placeholder="Menu" required value="`+item.menu+`">
                         </div>
-                        <div class="form-input-group">
-                            <input type="text" name="song" id="song`+index+`"
+                        <div class="rsvp-submission-input-group">
+                            <input type="text" name="song" id="song_request-`+index+`"
                                 placeholder="Song Request. It probably won't play but if you had a song you want to hear put it here." required value="`+item.song_request+`">
                         </div>
                         `
         });
-        innerHtml += `<button class="btn-fill rsvp-btn">
+        innerHtml += `<button type="button" id="button-0" class="btn-fill rsvp-submission-btn" onclick="on_data_submit()">
                             Submit
                         </button>
-                    </form>`
+                    </form>
+                    `
         return innerHtml;
     }
 
     var data_from_code = function (code) {
-        var app_url = "https://script.google.com/macros/s/AKfycbzUZk8uAYwDeFlxtfl2qbB8FglpLC-JdhKo1fmkeGwwd5PksB1AGf8SKALR9yBugfk/exec";
+        var app_url = "https://script.google.com/macros/s/AKfycbwep2YnzpBBIWPXk9ynBAidICYTNpOP1Xb7NiNiFAiEFRvz3W5OfkalNiIU7UN0My0/exec";
         app_url = app_url + "?code=" + code + "&verifyonly=" + false;
         var data_response = {};
         $.ajax({
@@ -201,11 +206,69 @@
              data[tmp[0]] = tmp[1];
         }
         var valid_data = data_from_code(data.id);
+        document.getElementById('validation-code').value = data.id;
         var innerHtml = "That is not a valid code!"
         if (valid_data.valid === true){
             innerHtml = data_div(valid_data);
         }
         document.getElementById('here').innerHTML = innerHtml;
+    };
+
+    var on_data_submit = function (e) {
+        var elements = document.getElementById('rsvp-submission').elements;
+        var code = parseInt(document.getElementById('validation-code').value);
+        var data = [];
+        for (var i = 0; i < elements.length; i++){
+            var id = elements[i].id.split('-');
+            var title = id[0];
+            var pos = parseInt(id[1]);
+            var dict = {
+                "validation_code": code,
+                "plus_one_allowed": false
+            };
+            
+            if(title !== 'button'){
+                if(data.length<=pos){
+                    data[pos] = dict;
+                }
+                else{
+                    dict = data[pos];
+                }
+
+                if( title === 'rsvp'){
+                    dict[title] = elements[i].checked;
+                }
+                else{
+                    dict[title] = elements[i].value;
+                }
+                data[pos] = dict
+            }
+        }
+        rsvp_data = {
+            "code": code,
+            "rsvps": data
+        }
+        update_rsvp_details(rsvp_data);
+            
+        window.location.href = "rsvp.html?id="+encodeURIComponent(code);
+    };
+
+    // update details
+    var update_rsvp_details = function (data) {
+        var app_url = "https://script.google.com/macros/s/AKfycbwep2YnzpBBIWPXk9ynBAidICYTNpOP1Xb7NiNiFAiEFRvz3W5OfkalNiIU7UN0My0/exec";
+        $.ajax({
+            url: app_url,
+            method: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(data),
+            success: function () {
+                alert("The form was submitted successfully.")
+            },
+            error: function () {
+                alert("The form failed. Please let Jonathan know and try again later.")
+            }
+        });
     };
 </script>  
 <!-- Google Analytics -->

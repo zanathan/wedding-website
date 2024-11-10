@@ -222,7 +222,6 @@ $(document).ready(function () {
             window.location.href = "pages/rsvp.html?id="+encodeURIComponent($('#invite_code').val());
         }
     });
-
 });
 
 /********************** Extras **********************/
@@ -234,7 +233,7 @@ function alert_markup(alert_type, msg) {
 
 // Validate Code
 var validate_code = function (code) {
-    var app_url = "https://script.google.com/macros/s/AKfycbzUZk8uAYwDeFlxtfl2qbB8FglpLC-JdhKo1fmkeGwwd5PksB1AGf8SKALR9yBugfk/exec";
+    var app_url = "https://script.google.com/macros/s/AKfycbwep2YnzpBBIWPXk9ynBAidICYTNpOP1Xb7NiNiFAiEFRvz3W5OfkalNiIU7UN0My0/exec";
     app_url = app_url + "?code=" + code + "&verifyonly=" + true;
     var valid_code = false;
     $.ajax({
