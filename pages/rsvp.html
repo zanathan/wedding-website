@@ -178,7 +178,7 @@
     }
 
     var data_from_code = function (code) {
-        var app_url = "https://script.google.com/macros/s/AKfycbwep2YnzpBBIWPXk9ynBAidICYTNpOP1Xb7NiNiFAiEFRvz3W5OfkalNiIU7UN0My0/exec";
+        var app_url = "https://script.google.com/macros/s/AKfycbxH95kr0KyKgrcj16YKH6UTRl_Y_GhGCJt9FFOSJnkFrQscAP4F_vFiXqpZaWyaOUw/exec";
         app_url = app_url + "?code=" + code + "&verifyonly=" + false;
         var data_response = {};
         $.ajax({
@@ -246,7 +246,8 @@
         }
         rsvp_data = {
             "code": code,
-            "rsvps": data
+            "rsvps": data,
+            "plus_ones": []
         }
         update_rsvp_details(rsvp_data);
             
@@ -255,7 +256,7 @@
 
     // update details
     var update_rsvp_details = function (data) {
-        var app_url = "https://script.google.com/macros/s/AKfycbwep2YnzpBBIWPXk9ynBAidICYTNpOP1Xb7NiNiFAiEFRvz3W5OfkalNiIU7UN0My0/exec";
+        var app_url = "https://script.google.com/macros/s/AKfycbxH95kr0KyKgrcj16YKH6UTRl_Y_GhGCJt9FFOSJnkFrQscAP4F_vFiXqpZaWyaOUw/exec";
         $.ajax({
             url: app_url,
             method: "POST",
