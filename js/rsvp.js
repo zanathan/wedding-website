@@ -11,7 +11,7 @@ var data_div = function (valid_data){
             style="display: none;"
         }
         innerHtml += `<div class="container">
-                        <div class="row">
+                        <div class="row rsvp-submission-input-group">
                             <div class="col-md-10 col-md-offset-1">
                                 <label for="name-`+index+`">Name:</label>
                                 <input type="text" name="name" id="name-`+index+`"                            
@@ -22,7 +22,7 @@ var data_div = function (valid_data){
                             </div>
                             <div class="col-md-10 col-md-offset-1">
                                 <label for="rsvp-`+index+`">Tick this box to mark as attending:</label>
-                                <input type="checkbox" name="rsvp_checkbox" id="rsvp-`+index+`" title="Tick the box to mark as attending."
+                                <input type="checkbox" class="rsvp-submission-checkbox" name="rsvp_checkbox" id="rsvp-`+index+`" title="Tick the box to mark as attending."
                                     required `+checked+`>
                             </div>
                             <div class="col-md-10 col-md-offset-1">
@@ -195,7 +195,7 @@ var add_plus_one = function (index){
         document.getElementById('button-1-'+index).style.display = "none";
         innerHtml= `<br>
                     <div class="container">
-                        <div class="row">
+                        <div class="row rsvp-submission-input-group">
                             <div class="col-md-10 col-md-offset-1">
                                 <label for="new_name-`+index+`">Name:</label>
                                 <input type="text" name="name" id="new_name-`+index+`"                              
