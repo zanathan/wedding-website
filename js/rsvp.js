@@ -86,6 +86,7 @@ window.onload = function () {
         innerHtml = data_div(valid_data);
     }
     document.getElementById('here').innerHTML = innerHtml;
+    document.getElementById('loading').style.display = "none";
 };
 
 var on_data_submit = function (e) {
@@ -100,7 +101,8 @@ var on_data_submit = function (e) {
         var pos = parseInt(id[1]);
         var dict = {
             "validation_code": code,
-            "plus_one_allowed": false
+            "plus_one_allowed": false,
+            "has_rsvped": true,
         };
 
         if(title === 'button' && pos === 1 && count<new_people.length){
@@ -152,7 +154,7 @@ var on_data_submit = function (e) {
 
 // update details
 var update_rsvp_details = function (data) {
-    var app_url = "https://script.google.com/macros/s/AKfycbxH95kr0KyKgrcj16YKH6UTRl_Y_GhGCJt9FFOSJnkFrQscAP4F_vFiXqpZaWyaOUw/exec";
+    var app_url = "https://script.google.com/macros/s/AKfycbxH95kr0KyKgrcj16YKH6UTRl_Y_GhGCJt9FFOSJnkFrQscAP4F_vFiXqpZaWyaOUw/exec"; 
     $.ajax({
         url: app_url,
         method: "POST",
