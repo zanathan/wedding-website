@@ -10,37 +10,47 @@ var data_div = function (valid_data){
         if(item.plus_one_allowed===false){
             style="display: none;"
         }
-        innerHtml += `<div class="rsvp-submission-input-group">
-                        <input type="text" name="name" id="name-`+index+`"                              
-                            placeholder="Name" required value="`+item.name+`">
-                    </div>
-                    <div class="rsvp-submission-input-group">
-                        <input type="text" name="surname" id="surname-`+index+`"                              
-                            placeholder="Surname" required value="`+item.surname+`">
-                    </div>
-                    <div class="rsvp-submission-input-group">
-                        <input type="text" name="email" id="email-`+index+`"                              
-                            placeholder="Email address" required value="`+item.email+`">
-                    </div>
-                    <div class="rsvp-submission-input-group">
-                        <input type="checkbox" name="rsvp_checkbox" id="rsvp-`+index+`" title="Tick the box to mark as attending."
-                            required `+checked+`>
-                    </div>
-                    <div class="rsvp-submission-input-group">
-                        <input type="text" name="menu" id="menu-`+index+`"
+        innerHtml += `<div class="container">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <label for="name-`+index+`">Name:</label>
+                                <input type="text" name="name" id="name-`+index+`"                            
+                                    placeholder="Name" required value="`+item.name+`" disabled>&nbsp;
+                                <label for="surname-`+index+`">Surname:</label>
+                                <input type="text" name="surname" id="surname-`+index+`"                              
+                                    placeholder="Surname" required value="`+item.surname+`" disabled>&nbsp;
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <label for="rsvp-`+index+`">Tick this box to mark as attending:</label>
+                                <input type="checkbox" name="rsvp_checkbox" id="rsvp-`+index+`" title="Tick the box to mark as attending."
+                                    required `+checked+`>
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <label for="email-`+index+`">Enter your email adress:</label>
+                                <input type="text" name="email" id="email-`+index+`"                              
+                                    placeholder="Email address" required value="`+item.email+`">
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <label for="menu-`+index+`">Pick the menu you want from the dropdown:</label>
+                                <input type="text" name="menu" id="menu-`+index+`"
                             placeholder="Menu" required value="`+item.menu+`">
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <label for="song_request-`+index+`">Song Request:</label><br>
+                                <textarea name="song" id="song_request-`+index+`" 
+                                placeholder="Song Request. It probably won't play but if you had a song you want to hear put it here." 
+                                required rows="4" cols="50">`+item.song_request+`</textarea>
+                            </div>
+                        </div>
+                        <button type="button" id="button-1-`+index+`" class="btn-fill rsvp-submission-btn" onclick="add_plus_one(`+index+`)" style="`+style+`">
+                            Add Plus One
+                        </button>
+                        <button type="button" id="remove_button-1-`+index+`" class="btn-fill rsvp-submission-btn" onclick="remove_plus_one(`+index+`)" style="display: none;">
+                            Remove Plus One
+                        </button>
+                        <div id="new_person-`+index+`"></div>
                     </div>
-                    <div class="rsvp-submission-input-group">
-                        <input type="text" name="song" id="song_request-`+index+`"
-                            placeholder="Song Request. It probably won't play but if you had a song you want to hear put it here." required value="`+item.song_request+`">
-                    </div>
-                    <button type="button" id="button-1-`+index+`" class="btn-fill rsvp-submission-btn" onclick="add_plus_one(`+index+`)" style="`+style+`">
-                        Add Plus One
-                    </button>
-                    <button type="button" id="remove_button-1-`+index+`" class="btn-fill rsvp-submission-btn" onclick="remove_plus_one(`+index+`)" style="display: none;">
-                        Remove Plus One
-                    </button>
-                    <div id="new_person-`+index+`"></div>
+                    <br>
                     `
     });
     innerHtml += `<button type="button" id="button-0" class="btn-fill rsvp-submission-btn" onclick="on_data_submit()">
@@ -162,10 +172,10 @@ var update_rsvp_details = function (data) {
         dataType: "json",
         data: JSON.stringify(data),
         success: function () {
-            alert("The form was submitted successfully.")
+            alert("The form was submitted successfully.");
         },
         error: function () {
-            alert("The form failed. Please let Jonathan know and try again later.")
+            alert("The form failed. Please let Jonathan know and try again later.");
         }
     });
 };
@@ -177,31 +187,47 @@ var remove_plus_one = function (index){
 };
 
 var add_plus_one = function (index){
-    document.getElementById('remove_button-1-'+index).style.display = "";
-    document.getElementById('button-1-'+index).style.display = "none";
-    innerHtml= `<div class="rsvp-submission-input-group">
-                        <input type="text" name="name" id="new_name-`+index+`"                              
-                            placeholder="Name" required value="">
+    is_going = document.getElementById('rsvp-'+index).checked
+    if(is_going === false){
+        alert("You cannot add a plus one if you aren't going. Please tick the box before adding a plus one.");
+    }else{
+        document.getElementById('remove_button-1-'+index).style.display = "";
+        document.getElementById('button-1-'+index).style.display = "none";
+        innerHtml= `<br>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <label for="new_name-`+index+`">Name:</label>
+                                <input type="text" name="name" id="new_name-`+index+`"                              
+                                    placeholder="Name" required value="">&nbsp;
+                                <label for="new_surname-`+index+`">Surname:</label>
+                                <input type="text" name="surname" id="new_surname-`+index+`"                              
+                                    placeholder="Surname" required value="">&nbsp;
+                            </div>
+                            <div class="col-md-10 col-md-offset-1" style="display: none;">
+                                <label for="new_rsvp-`+index+`">Tick this box to mark as attending:</label>
+                                <input type="checkbox" name="rsvp_checkbox" id="new_rsvp-`+index+`" title="Tick the box to mark as attending."
+                                    required checked>
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <label for="new_email-`+index+`">Enter your email adress:</label>
+                                <input type="text" name="email" id="new_email-`+index+`"                              
+                                    placeholder="Email address" required value="">
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <label for="new_menu-`+index+`">Pick the menu you want from the dropdown:</label>
+                                <input type="text" name="menu" id="new_menu-`+index+`"
+                                    placeholder="Menu" required value="">
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <label for="new_song_request-`+index+`">Song Request:</label><br>
+                                <textarea name="song" id="new_song_request-`+index+`" 
+                                placeholder="Song Request. It probably won't play but if you had a song you want to hear put it here." 
+                                required rows="4" cols="50"></textarea>
+                            </div>
+                        </div>
                     </div>
-                    <div class="rsvp-submission-input-group">
-                        <input type="text" name="surname" id="new_surname-`+index+`"                              
-                            placeholder="Surname" required value="">
-                    </div>
-                    <div class="rsvp-submission-input-group">
-                        <input type="text" name="email" id="new_email-`+index+`"                              
-                            placeholder="Email address" required value="">
-                    </div>
-                    <div class="rsvp-submission-input-group">
-                        <input type="checkbox" name="rsvp_checkbox" id="new_rsvp-`+index+`" title="Tick the box to mark as attending."
-                            required>
-                    </div>
-                    <div class="rsvp-submission-input-group">
-                        <input type="text" name="menu" id="new_menu-`+index+`"
-                            placeholder="Menu" required value="">
-                    </div>
-                    <div class="rsvp-submission-input-group">
-                        <input type="text" name="song" id="new_song_request-`+index+`"
-                            placeholder="Song Request. It probably won't play but if you had a song you want to hear put it here." required value="">
-                    </div>`
-    document.getElementById('new_person-'+index).innerHTML = innerHtml;
+                    <br>`
+        document.getElementById('new_person-'+index).innerHTML = innerHtml;
+    }
 }
