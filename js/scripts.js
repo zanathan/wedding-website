@@ -219,7 +219,7 @@ $(document).ready(function () {
         if (valid_code === false) {
             $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> Your invite code is incorrect.'));
         } else {
-            window.location.href = "pages/rsvp.html?id="+encodeURIComponent($('#invite_code').val());
+            window.location.href = "rsvp.html?id="+encodeURIComponent($('#invite_code').val());
         }
     });
 });
