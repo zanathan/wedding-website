@@ -233,7 +233,7 @@ function alert_markup(alert_type, msg) {
 
 // Validate Code
 var validate_code = function (code) {
-    var app_url = "https://script.google.com/macros/s/AKfycbxH95kr0KyKgrcj16YKH6UTRl_Y_GhGCJt9FFOSJnkFrQscAP4F_vFiXqpZaWyaOUw/exec";
+    var app_url = "https://script.google.com/macros/s/AKfycbw_wsoHVjDSfjOil6CThzRjeMInP7ImH9qD59ns8dHa99a_3jPHi0kZr7F2qcn5oQo/exec";
     app_url = app_url + "?code=" + code + "&verifyonly=" + true;
     var valid_code = false;
     $.ajax({
