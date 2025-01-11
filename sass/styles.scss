@@ -893,8 +893,8 @@ RSVP form
   padding-bottom: 140px;
   .rsvp-submission {
     .rsvp-submission-checkbox{
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
     }
     .rsvp-submission-btn {
       padding: 15px 0;
@@ -933,7 +933,6 @@ RSVP form
         margin-left: 20px;
       }
       input {
-        padding-left: 68px;
         -moz-border-radius: 6px;
         -webkit-border-radius: 6px;
         border-radius: 6px;
@@ -941,7 +940,6 @@ RSVP form
         border-width: thin;
       }
       textarea {
-        padding-left: 68px;
         -moz-border-radius: 6px;
         -webkit-border-radius: 6px;
         border-radius: 6px;
@@ -949,7 +947,8 @@ RSVP form
         border-width: thin;
         position: relative; 
         margin: 10px 10px 10px 10px; 
-        width:90%;
+        width:300px;
+        height: 120px;
       }
       input::-webkit-input-placeholder {
         color: $form-placeholder;

@@ -182,8 +182,8 @@
     
     function get_photos()
     {
-        var innerHtml = '';
-        for (var i = 1; i < 86; i++) {
+        var innerHtml = '<div class="row">';
+        for (var i = 1; i < 49; i++) {
             var path = "img/all_eng_pics/00"
             if (i<10){
                 path += '0'
@@ -204,7 +204,12 @@
                         </div>
                     </a>
                 </div>`
+            if (i%6 ===0){
+                innerHtml += `</div>
+                <div class="row">` 
+            }
         }
+        innerHtml += '</div>'
         return innerHtml;
     }
 </script>
