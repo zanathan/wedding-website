@@ -893,8 +893,8 @@ RSVP form
   padding-bottom: 140px;
   .rsvp-submission {
     .rsvp-submission-checkbox{
-      width: 25px;
-      height: 25px;
+      width: 22px;
+      height: 22px;
     }
     .rsvp-submission-btn {
       padding: 15px 0;
@@ -945,8 +945,11 @@ RSVP form
         -moz-border-radius: 6px;
         -webkit-border-radius: 6px;
         border-radius: 6px;
-        border-style: ridge;
-        
+        border-style: ridge;      
+        border-width: thin;
+        position: relative; 
+        margin: 10px 10px 10px 10px; 
+        width:90%;
       }
       input::-webkit-input-placeholder {
         color: $form-placeholder;
