@@ -10,11 +10,13 @@
 	border-radius: 40px;
 	display: inline-block;
 	text-transform: uppercase;
+	color: $black-color;
+	border-color: $black-color;
 }
 .btn:hover, .btn:focus {
 	color: $white-color;
-	border-color: $accent-color;
-	background-color: $accent-color;
+	border-color: $black-color;
+	background-color: $black-color;
 }
 .btn-rsvp {
 	font-size: 13px;
@@ -24,10 +26,12 @@
 	border-radius: 40px;
 	display: inline-block;
 	text-transform: uppercase;
+	color: $black-color;
+	border-color: $black-color;
 }
 .btn-rsvp:hover, .btn-rsvp:focus {
-	color: $accent-color;
-	border-color: $accent-color;
+	color: $white-color;
+	border-color: $white-color;
 	background-color: $black-color;
 }
 .btn-white {
@@ -48,18 +52,18 @@
 }
 .btn-fill {
 	color: $white-color;
-	border: solid 2px $accent-color;
+	border: solid 2px $black-color;
 	-moz-border-radius: 40px;
 	-webkit-border-radius: 40px;
 	border-radius: 40px;
 	display: inline-block;
 	text-transform: uppercase;
-	background-color: $accent-color;
+	background-color: $black-color;
 }
 .btn-fill:hover, .btn-fill:focus {
-	color: $white-color;
-	background-color: $accent-color-hover;
-	border-color: $accent-color-hover;
+	color: $black-color;
+	background-color: $white-color;
+	border-color: $black-color;
 }
 .btn-small {
 	padding: 8px 30px;
