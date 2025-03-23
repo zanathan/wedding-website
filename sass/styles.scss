@@ -265,7 +265,7 @@ Hero
     left: 50%;
   }*/
   .down-arrow a {
-    color: $txt-light;
+    color: $black-color;
   }
   h1 {
     color: $txt-light;
@@ -301,7 +301,7 @@ Hero
     left: 50%;
   }*/
   .down-arrow a {
-    color: $txt-light;
+    color: $black-color;
   }
   h1 {
     color: $txt-light;
@@ -400,9 +400,10 @@ header {
   }
 }
 .down-arrow {
-  color: #fff;
+  color: #000;
   font-size: 30px;
   position: absolute;
+  margin: 0px auto -60px;
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);

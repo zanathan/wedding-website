@@ -51,18 +51,18 @@
 	background-color: $black-color;
 }
 .btn-fill {
-	color: $white-color;
+	color: $black-color;
 	border: solid 2px $black-color;
 	-moz-border-radius: 40px;
 	-webkit-border-radius: 40px;
 	border-radius: 40px;
 	display: inline-block;
 	text-transform: uppercase;
-	background-color: $black-color;
+	background-color: $white-color;
 }
 .btn-fill:hover, .btn-fill:focus {
-	color: $black-color;
-	background-color: $white-color;
+	color: $white-color;
+	background-color: $black-color;
 	border-color: $black-color;
 }
 .btn-small {
