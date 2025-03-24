@@ -83,7 +83,7 @@ var data_from_code = function (code) {
 
 window.onload = function () {
     var url = document.location.href,
-        params = url.split('?')[1].split('&'),
+        params = url.split('#')[0].split('?')[1].split('&'),
         data = {}, tmp;
     for (var i = 0, l = params.length; i < l; i++) {
          tmp = params[i].split('=');
@@ -230,4 +230,15 @@ var add_plus_one = function (index){
                     <br>`
         document.getElementById('new_person-'+index).innerHTML = innerHtml;
     }
+}
+
+function addIDToURL(baseurl, path) {
+    var code = document.getElementById('validation-code').value;
+    var newURL = baseurl;
+
+    if(code){
+        newURL = newURL+'?id='+code+path;
+    }
+
+    window.location=newURL;
 }

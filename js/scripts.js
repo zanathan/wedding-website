@@ -119,7 +119,6 @@ $(document).ready(function () {
     /***************** Smooth Scrolling ******************/
 
     $(function () {
-
         $('a[href*=#]:not([href=#])').click(function () {
             if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
 
@@ -133,7 +132,6 @@ $(document).ready(function () {
                 }
             }
         });
-
     });
 
     /********************** Social Share buttons ***********************/
@@ -219,7 +217,7 @@ $(document).ready(function () {
         if (valid_code === false) {
             $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> Your invite code is incorrect.'));
         } else {
-            window.location.href = "rsvp.html?id="+encodeURIComponent($('#invite_code').val());
+            window.location.href = "home.html?id="+encodeURIComponent($('#invite_code').val());
         }
     });
 });
@@ -229,6 +227,24 @@ $(document).ready(function () {
 // alert_markup
 function alert_markup(alert_type, msg) {
     return '<div class="alert alert-' + alert_type + '" role="alert">' + msg + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button></div>';
+}
+
+function addIDToURL(baseurl, path) {
+    var url = document.location.href,
+        params = url.split('#')[0].split('?')[1].split('&'),
+        data = {}, tmp;
+    for (var i = 0, l = params.length; i < l; i++) {
+         tmp = params[i].split('=');
+         data[tmp[0]] = tmp[1];
+    }
+    var id = data.id;
+    var newURL = baseurl;
+
+    if(id){
+        newURL = newURL+'?id='+id+path;
+    }
+
+    window.location=newURL;
 }
 
 // Validate Code
