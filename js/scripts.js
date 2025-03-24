@@ -206,19 +206,35 @@ $(document).ready(function () {
 
 
     /********************** RSVP **********************/
-    $('#rsvp-form').on('submit', function (e) {
-        e.preventDefault();
-        var data = $(this).serialize();
+    $('#rsvp-form').on('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
 
+        // Show the loading div immediately
+        document.getElementById('loading').style.display = "block";
+
+        // Show an initial info alert
         $('#alert-wrapper').html(alert_markup('info', 'Checking invite code'));
 
-        var valid_code = validate_code($('#invite_code').val())
+        // Use setTimeout to delay the validation logic, allowing the UI to update
+        setTimeout(function() {
+            // Extract code value (make sure 'code' input field has an id or name)
+            var code = $('#invite_code').val(); // Adjust the selector to match your actual input field
 
-        if (valid_code === false) {
-            $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> Your invite code is incorrect.'));
-        } else {
-            window.location.href = "home.html?id="+encodeURIComponent($('#invite_code').val());
-        }
+            // Validate the code
+            var valid_code = validate_code(code);
+            console.log(valid_code);
+
+            // Hide the loading div after validation
+            document.getElementById('loading').style.display = "none";
+
+            if (valid_code === false) {
+                // Show error alert
+                $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> Your invite code is incorrect.'));
+            } else {
+                // Redirect to home.html if the code is valid
+                window.location.href = "home.html?id=" + encodeURIComponent(code);
+            }
+        }, 0); // Delay is set to 0 milliseconds; enough to allow UI rendering
     });
 });
 
