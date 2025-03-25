@@ -257,6 +257,11 @@
     footer .footer-links {
         margin: 120px 0 120px 0;
     }
+
+    .col-md-2{
+        width: 16.66666667%;
+        float: left;
+    }
 }
 
 @media screen and (max-width: 640px) {
