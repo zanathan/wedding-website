@@ -31,9 +31,16 @@ var data_div = function (valid_data){
                                     placeholder="Email address" required value="`+item.email+`">
                             </div>
                             <div class="col-md-10 col-md-offset-1">
-                                <label for="menu-`+index+`">Pick the menu you want from the dropdown:</label>
-                                <input type="text" name="menu" id="menu-`+index+`"
-                            placeholder="Menu" required value="`+item.menu+`">
+                                <label for="menu-`+index+`">Pick the menu you want from the dropdown:</label><br>
+                                <select id="menu-`+index+`" name="menu">
+                                    <option value="chicken">Chicken</option>
+                                    <option value="beef">Beef</option>
+                                    <option value="pork">Slow roasted pork belly with grilled crackling &#10;&#13;
+                                        topped with asian soy and sesame glaze, mush &#10;&#13;
+                                        green peas and roasted potato wedges garnished &#10;&#13;
+                                        with apple fennel & dill salad
+                                    </option>
+                                </select>
                             </div>
                             <div class="col-md-10 col-md-offset-1">
                                 <label for="song_request-`+index+`">Song Request:</label><br>
@@ -215,9 +222,12 @@ var add_plus_one = function (index){
                                     placeholder="Email address" required value="">
                             </div>
                             <div class="col-md-10 col-md-offset-1">
-                                <label for="new_menu-`+index+`">Pick the menu you want from the dropdown:</label>
-                                <input type="text" name="menu" id="new_menu-`+index+`"
-                                    placeholder="Menu" required value="">
+                                <label for="new_menu-`+index+`">Pick the menu you want from the dropdown:</label><br>
+                                <select id="new_menu-`+index+`" name="menu">
+                                    <option value="chicken">Chicken</option>
+                                    <option value="beef">Beef</option>
+                                    <option value="pork">Pork</option>
+                                </select>
                             </div>
                             <div class="col-md-10 col-md-offset-1">
                                 <label for="new_song_request-`+index+`">Song Request:</label><br>
