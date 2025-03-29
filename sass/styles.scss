@@ -951,6 +951,9 @@ RSVP form
         width:300px;
         height: 120px;
       }
+      select {
+        width:300px;
+      }
       input::-webkit-input-placeholder {
         color: $form-placeholder;
       }

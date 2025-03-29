@@ -14,8 +14,10 @@ var data_div = function (valid_data){
                         <div class="row rsvp-submission-input-group">
                             <div class="col-md-10 col-md-offset-1">
                                 <label for="name-`+index+`">Name:</label>
-                                <input type="text" name="name" id="name-`+index+`"                            
+                                <input type="text" name="name" id="name-`+index+`"                              
                                     placeholder="Name" required value="`+item.name+`" disabled>&nbsp;
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
                                 <label for="surname-`+index+`">Surname:</label>
                                 <input type="text" name="surname" id="surname-`+index+`"                              
                                     placeholder="Surname" required value="`+item.surname+`" disabled>&nbsp;
@@ -31,16 +33,10 @@ var data_div = function (valid_data){
                                     placeholder="Email address" required value="`+item.email+`">
                             </div>
                             <div class="col-md-10 col-md-offset-1">
-                                <label for="menu-`+index+`">Pick the menu you want from the dropdown:</label><br>
-                                <select id="menu-`+index+`" name="menu">
-                                    <option value="chicken">Chicken</option>
-                                    <option value="beef">Beef</option>
-                                    <option value="pork">Slow roasted pork belly with grilled crackling &#10;&#13;
-                                        topped with asian soy and sesame glaze, mush &#10;&#13;
-                                        green peas and roasted potato wedges garnished &#10;&#13;
-                                        with apple fennel & dill salad
-                                    </option>
-                                </select>
+                                <label for="dietry_requirements-`+index+`">Dietry Requirements:</label><br>
+                                <textarea style="height: 56px;" name="dietry_requirements" id="dietry_requirements-`+index+`" 
+                                placeholder="Please list any dietry requirements we should be aware of." 
+                                required rows="3" cols="50">`+item.dietry_requirements+`</textarea>
                             </div>
                             <div class="col-md-10 col-md-offset-1">
                                 <label for="song_request-`+index+`">Song Request:</label><br>
@@ -69,7 +65,7 @@ var data_div = function (valid_data){
 }
 
 var data_from_code = function (code) {
-    var app_url = "https://script.google.com/macros/s/AKfycbw-cm-6UMmdf5Gq_OL_n9tgWKNZaH6fmzPUdWbsP3bqjdsbt87AL50Y87I-vLgGfXE/exec";
+    var app_url = "https://script.google.com/macros/s/AKfycbwkH0SRfKrXb5EQdZZ8lrNAXd9U09kmWWXL22WiUnr7v56iuv3MWIRKJ_7WqwN1NwY/exec";
     app_url = app_url + "?code=" + code + "&verifyonly=" + false;
     var data_response = {};
     $.ajax({
@@ -107,71 +103,74 @@ window.onload = function () {
 };
 
 var on_data_submit = function (e) {
-    var elements = document.getElementById('rsvp-submission').elements;
-    var code = document.getElementById('validation-code').value;
-    var data = [];
-    var new_people = [];
-    var count = -1;
-    for (var i = 0; i < elements.length; i++){
-        var id = elements[i].id.split('-');
-        var title = id[0];
-        var pos = parseInt(id[1]);
-        var dict = {
-            "validation_code": code,
-            "plus_one_allowed": false,
-            "has_rsvped": true,
-        };
+    document.getElementById('loading').style.display = "block";
+    setTimeout(function() {
+        var elements = document.getElementById('rsvp-submission').elements;
+        var code = document.getElementById('validation-code').value;
+        var data = [];
+        var new_people = [];
+        var count = -1;
+        for (var i = 0; i < elements.length; i++){
+            var id = elements[i].id.split('-');
+            var title = id[0];
+            var pos = parseInt(id[1]);
+            var dict = {
+                "validation_code": code,
+                "plus_one_allowed": false,
+                "has_rsvped": true,
+            };
 
-        if(title === 'button' && pos === 1 && count<new_people.length){
-            count=count+1;
-        }
-        
-        if (title.split('_')[0] === 'new'){
-            if(new_people.length===count){
+            if(title === 'button' && pos === 1 && count<new_people.length){
+                count=count+1;
+            }
+            
+            if (title.split('_')[0] === 'new'){
+                if(new_people.length===count){
+                    new_people[count] = dict;
+                }
+                else{
+                    dict = new_people[count];
+                }
+                title = title.replace("new_", "")
+                if( title === 'rsvp'){
+                    dict[title] = elements[i].checked;
+                }
+                else{
+                    dict[title] = elements[i].value;
+                }
                 new_people[count] = dict;
             }
-            else{
-                dict = new_people[count];
-            }
-            title = title.replace("new_", "")
-            if( title === 'rsvp'){
-                dict[title] = elements[i].checked;
-            }
-            else{
-                dict[title] = elements[i].value;
-            }
-            new_people[count] = dict;
-        }
-        else if(title !== 'button' && title !== 'remove_button'){
-            if(data.length<=pos){
-                data[pos] = dict;
-            }
-            else{
-                dict = data[pos];
-            }
+            else if(title !== 'button' && title !== 'remove_button'){
+                if(data.length<=pos){
+                    data[pos] = dict;
+                }
+                else{
+                    dict = data[pos];
+                }
 
-            if( title === 'rsvp'){
-                dict[title] = elements[i].checked;
+                if( title === 'rsvp'){
+                    dict[title] = elements[i].checked;
+                }
+                else{
+                    dict[title] = elements[i].value;
+                }
+                data[pos] = dict
             }
-            else{
-                dict[title] = elements[i].value;
-            }
-            data[pos] = dict
         }
-    }
-    rsvp_data = {
-        "code": code,
-        "rsvps": data,
-        "plus_ones": new_people
-    }
-    update_rsvp_details(rsvp_data);
-        
-    window.location.href = "rsvp.html?id="+encodeURIComponent(code);
+        rsvp_data = {
+            "code": code,
+            "rsvps": data,
+            "plus_ones": new_people
+        }
+        update_rsvp_details(rsvp_data);
+            
+        window.location.href = "home.html?id="+encodeURIComponent(code);
+    }, 0);
 };
 
 // update details
 var update_rsvp_details = function (data) {
-    var app_url = "https://script.google.com/macros/s/AKfycbw-cm-6UMmdf5Gq_OL_n9tgWKNZaH6fmzPUdWbsP3bqjdsbt87AL50Y87I-vLgGfXE/exec"; 
+    var app_url = "https://script.google.com/macros/s/AKfycbwkH0SRfKrXb5EQdZZ8lrNAXd9U09kmWWXL22WiUnr7v56iuv3MWIRKJ_7WqwN1NwY/exec"; 
     $.ajax({
         url: app_url,
         method: "POST",
@@ -207,6 +206,8 @@ var add_plus_one = function (index){
                                 <label for="new_name-`+index+`">Name:</label>
                                 <input type="text" name="name" id="new_name-`+index+`"                              
                                     placeholder="Name" required value="">&nbsp;
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
                                 <label for="new_surname-`+index+`">Surname:</label>
                                 <input type="text" name="surname" id="new_surname-`+index+`"                              
                                     placeholder="Surname" required value="">&nbsp;
@@ -222,12 +223,10 @@ var add_plus_one = function (index){
                                     placeholder="Email address" required value="">
                             </div>
                             <div class="col-md-10 col-md-offset-1">
-                                <label for="new_menu-`+index+`">Pick the menu you want from the dropdown:</label><br>
-                                <select id="new_menu-`+index+`" name="menu">
-                                    <option value="chicken">Chicken</option>
-                                    <option value="beef">Beef</option>
-                                    <option value="pork">Pork</option>
-                                </select>
+                                <label for="new_dietry_requirements-`+index+`">Dietry Requirements:</label><br>
+                                <textarea style="height: 56px;" name="dietry_requirements" id="new_menu-`+index+`" 
+                                placeholder="Please list any dietry requirements we should be aware of." 
+                                required rows="3" cols="50">`+item.dietry_requirements+`</textarea>
                             </div>
                             <div class="col-md-10 col-md-offset-1">
                                 <label for="new_song_request-`+index+`">Song Request:</label><br>
