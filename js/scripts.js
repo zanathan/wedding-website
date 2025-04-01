@@ -222,7 +222,6 @@ $(document).ready(function () {
 
             // Validate the code
             var valid_code = validate_code(code);
-            console.log(valid_code);
 
             // Hide the loading div after validation
             document.getElementById('loading').style.display = "none";
