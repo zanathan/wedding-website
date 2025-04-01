@@ -61,7 +61,7 @@
     <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 </head>
 <body id="top">
-<div id="loading" class="fancybox-overlay fancybox-overlay-fixed">
+<div id="loading" class="fancybox-overlay fancybox-overlay-fixed" style="display: block;">
     <div id="fancybox-loading" class="fancybox-loading"><img src="img/fancybox_loading.gif" alt=""/></div>
 </div>
 <!-- Visual Story images -->
@@ -80,7 +80,7 @@
                         <ul class="primary-nav">
                             <li><a href="javascript:addIDToURL('home.html','#intro');">How we met</a></li>
                             <li><a href="javascript:addIDToURL('home.html','#events');">Events</a></li>
-                            <li><a href="javascript:addIDToURL('accommodation.html','');">Accommodation Options</a></li>
+                            <li><a href="#accommodation">Accommodation Options</a></li>
                             <li>
                                 <a class="fancybox" rel="group" href="img/visual_story/halloween.jpg">
                                     Visual Story
@@ -90,6 +90,9 @@
                         </ul>
                         <ul class="member-actions">
                             <li><a href="javascript:addIDToURL('home.html','#map');" class="login">Venue</a></li>
+                            <li><a class="btn btn-rsvp btn-small" href="javascript:addIDToURL('rsvp.html','');">
+                                RSVP
+                            </a></li>
                         </ul>
                     </nav>
                 </div>
@@ -109,18 +112,50 @@
         </div>
         <div class="row">
             <div class="col-sm-4 hidden-xs"></div>
+            <div class="col-sm-4 hidden-xs text-center">
+                <a class="btn btn-white btn-small" color="black" href="javascript:addIDToURL('rsvp.html','');">
+                    RSVP
+                </a>
+            </div>
             <div class="col-sm-4 hidden-xs"></div>
         </div>
     </div>
-    <div class="down-arrow floating-arrow"><a href="#rsvp-final"><i class="fa fa-angle-down"></i></a></div>
+    <div class="down-arrow floating-arrow"><a href="#accommodation"><i class="fa fa-angle-down"></i></a></div>
 </section>
 
-<section id="rsvp-final" class="rsvp-final text-center">
+<section id="accommodation" class="section-padding text-center">
     <div class="container">
         <div class="row">
-            <h3>RSVP</h3>
-            <div id="validation-code"></div>
-            <div id="here">
+            <div class="col-md-12 text-center">
+                <h3>Accommodation</h3>
+                <div id="validation-code"></div>
+                <div id="here"></div>
+                <table>
+                    <tr>
+                      <th>Name</th>
+                      <th>Location</th>
+                      <th>Contact</th>
+                      <th>Distance From Venue</th>
+                      <th>Number pax</th>
+                    </tr>
+                    <tr>
+                      <td><a href="www.springgrove-estate.com">Springgrove estate</a></td>
+                      <td><a href="https://maps.app.goo.gl/5M3KZwTdvS57VZRV8">Springgrove estate map</a></td>
+                      <td>+27794949675</td>
+                      <td>35km east, past Lothair</td>
+                      <td>40</td>
+                    </tr>
+                    <tr>
+                      <td><a href="https://www.lekkeslaap.co.za/accommodation/tolderia-resort">Tolderia resort</a><br />
+                        Mariaan van Rooyen</td>
+                      <td><a href="https://maps.app.goo.gl/LtMZnFY7D4Tx6EVWA">Tolderia resort map</a></td>
+                      <td>+27829257251 <br /> tolderia@gmail.com</td>
+                      <td>20km east towards Lothair</td>
+                      <td>48</td>
+                    </tr>
+                  </table>
+                  
+                  </body>
             </div>
         </div>
     </div>
@@ -143,8 +178,7 @@
 <script src="js/jquery.flexslider-min.js"></script>
 <script src="js/jquery.mb.YTPlayer.min.js"></script>
 <script src="js/vendor/ouical.js"></script>
-<script src="js/scripts.min.js"></script>
-<script src='js/rsvp.js'></script>
+<script src="js/accommodation.js"></script>
 <!-- Google Analytics -->
 <script>
     (function (i, s, o, g, r, a, m) {
