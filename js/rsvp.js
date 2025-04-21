@@ -65,7 +65,7 @@ var data_div = function (valid_data){
 }
 
 var data_from_code = function (code) {
-    var app_url = "https://script.google.com/macros/s/AKfycbwkH0SRfKrXb5EQdZZ8lrNAXd9U09kmWWXL22WiUnr7v56iuv3MWIRKJ_7WqwN1NwY/exec";
+    var app_url = "https://script.google.com/macros/s/AKfycbxg6cfCjFvgdcbBghtEeNwZU354lSQlZSvuxM_UBHQGFdwZbcmq0qOtRQH7kF1kl3c/exec";
     app_url = app_url + "?code=" + code + "&verifyonly=" + false;
     var data_response = {};
     $.ajax({
@@ -170,7 +170,7 @@ var on_data_submit = function (e) {
 
 // update details
 var update_rsvp_details = function (data) {
-    var app_url = "https://script.google.com/macros/s/AKfycbwkH0SRfKrXb5EQdZZ8lrNAXd9U09kmWWXL22WiUnr7v56iuv3MWIRKJ_7WqwN1NwY/exec"; 
+    var app_url = "https://script.google.com/macros/s/AKfycbxg6cfCjFvgdcbBghtEeNwZU354lSQlZSvuxM_UBHQGFdwZbcmq0qOtRQH7kF1kl3c/exec"; 
     $.ajax({
         url: app_url,
         method: "POST",
