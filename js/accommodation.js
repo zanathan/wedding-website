@@ -19,7 +19,7 @@ var verify_from_code = function (code) {
 };
 
 var accommodation_from_code = function (code) {
-    var app_url = "https://script.google.com/macros/s/AKfycbzYSaFRPy41wYRDn_f_YbRPAVjX9zsEOXV20O3iPy4uX00yiPJv42OE_H7xDOJxuS4/exec";
+    var app_url = "https://script.google.com/macros/s/AKfycbwY7v4_PkpA7ZzIwuuglhA-Ovusz_K2NeUmfvlz9E-TOJ37WrjGqpAF_R29VNeJZ3f4/exec";
     app_url = app_url + "?code=" + code;
     var data_response = {};
     $.ajax({
@@ -40,8 +40,12 @@ var accommodation_from_code = function (code) {
 
 var accommodation_option = function (data){
     return `<p>
-        You have been selected to stay at the wedding venue. Please indicate you will be taking the accommodation when you rsvp. <br/>
-        Accommodation option: ${data.Room_Option}
+        You have been selected to stay at the wedding venue.<br/>
+        Please indicate if you will be taking the accommodation when you rsvp.<br/>
+        Accommodation option: ${data.room_option}<br/>
+        Cost: ${data.cost}<br/>
+        Please reach out to Jonathan or Rosanna to sort out payment for this accommodation.<br/>
+        Please also note the accommodation includes dinner the night before the wedding and all breakfasts.
     </p>`
 }
 

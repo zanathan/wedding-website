@@ -1,6 +1,33 @@
 var data_div = function (valid_data){
     var innerHtml = `<form id="rsvp-submission" class="rsvp-submission">
         `;
+    if(valid_data.accommodation){
+        var accommodation = accommodation_from_code(valid_data.code).data[0];
+        document.getElementById('accommodation-data').value = accommodation;
+        var has_accepted = "";
+        if(accommodation.rsvp===true){
+            has_accepted = "checked";
+        }
+        innerHtml += `<div class="container">
+                        <div class="row rsvp-submission-input-group">
+                            <p>
+                                You have been selected to stay at the wedding venue.<br/>
+                                Accommodation option: ${accommodation.room_option}<br/>
+                                Cost: ${accommodation.cost}<br/>
+                                Please reach out to Jonathan or Rosanna to sort out payment for this accommodation.<br/>
+                                Please also note the accommodation includes dinner the night before the wedding and all breakfasts.
+                            </p>
+                            <div class="col-md-10 col-md-offset-1">
+                                <label for="accommodation">Tick this box to confirm you will be taking the accommodation:</label>
+                                <input type="checkbox" class="rsvp-submission-checkbox" name="accommodation_checkbox" id="accommodation" title="Tick this box to confirm you will be taking the accommodation."
+                                    required `+has_accepted+`>
+                            </div>
+                        </div>
+                    </div>
+                    <br>`
+
+    }
+    
     valid_data.data.forEach(function (item, index) {
         checked="";
         style="";
@@ -64,6 +91,26 @@ var data_div = function (valid_data){
     return innerHtml;
 }
 
+var accommodation_from_code = function(code){
+    var app_url = "https://script.google.com/macros/s/AKfycbwY7v4_PkpA7ZzIwuuglhA-Ovusz_K2NeUmfvlz9E-TOJ37WrjGqpAF_R29VNeJZ3f4/exec";
+    app_url = app_url + "?code=" + code;
+    var data_response = {};
+    $.ajax({
+        url: app_url,
+        method: "GET",
+        async: false,
+        dataType: "json",
+        success: function (response) {
+            data_response = response
+        },
+        error: function () {
+            alert("The form failed. Please let Jonathan know and try again later.")
+            data_response = {}
+        }
+    });
+    return data_response;
+}
+
 var data_from_code = function (code) {
     var app_url = "https://script.google.com/macros/s/AKfycbxg6cfCjFvgdcbBghtEeNwZU354lSQlZSvuxM_UBHQGFdwZbcmq0qOtRQH7kF1kl3c/exec";
     app_url = app_url + "?code=" + code + "&verifyonly=" + false;
@@ -106,13 +153,32 @@ window.onload = function () {
 var on_data_submit = function (e) {
     document.getElementById('loading').style.display = "block";
     setTimeout(function() {
+        var startVal = 0;
         var elements = document.getElementById('rsvp-submission').elements;
         var code = document.getElementById('validation-code').value;
         var accommodation = document.getElementById('accommodation').value
+        if(accommodation){
+            var accommodation_data = document.getElementById('accommodation-data').value
+            var accommodation_dict = {
+                code: code,
+                room_option: accommodation_data.room_option,
+                room_code: accommodation_data.room_code,
+                sharing: accommodation_data.sharing,
+                cost: accommodation_data.cost,
+                rsvp: elements[startVal].checked,
+                has_rsvp: true,	
+                has_paid: accommodation_data.has_paid
+            }
+            update_accomodation_details(accommodation_dict);
+            startVal = 1;
+        }
         var data = [];
         var new_people = [];
         var count = -1;
-        for (var i = 0; i < elements.length; i++){
+        for (var i = startVal; i < elements.length; i++){
+            if(elements[i].id === 'accommodation'){
+                continue;
+            }
             var id = elements[i].id.split('-');
             var title = id[0];
             var pos = parseInt(id[1]);
@@ -185,6 +251,20 @@ var update_rsvp_details = function (data) {
         },
         error: function () {
             alert("The form failed. Please let Jonathan know and try again later.");
+        }
+    });
+};
+
+var update_accomodation_details = function (data) {
+    var app_url = "https://script.google.com/macros/s/AKfycbwY7v4_PkpA7ZzIwuuglhA-Ovusz_K2NeUmfvlz9E-TOJ37WrjGqpAF_R29VNeJZ3f4/exec"; 
+    $.ajax({
+        url: app_url,
+        method: "POST",
+        async: false,
+        dataType: "json",
+        data: JSON.stringify(data),
+        error: function () {
+            alert("The form failed to update accomodation. Please let Jonathan know and try again later.");
         }
     });
 };
