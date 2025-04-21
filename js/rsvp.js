@@ -94,6 +94,7 @@ window.onload = function () {
     }
     var valid_data = data_from_code(data.id);
     document.getElementById('validation-code').value = data.id;
+    document.getElementById('accommodation').value = valid_data.accommodation;
     var innerHtml = "That is not a valid code!"
     if (valid_data.valid === true){
         innerHtml = data_div(valid_data);
@@ -107,6 +108,7 @@ var on_data_submit = function (e) {
     setTimeout(function() {
         var elements = document.getElementById('rsvp-submission').elements;
         var code = document.getElementById('validation-code').value;
+        var accommodation = document.getElementById('accommodation').value
         var data = [];
         var new_people = [];
         var count = -1;
@@ -118,6 +120,7 @@ var on_data_submit = function (e) {
                 "validation_code": code,
                 "plus_one_allowed": false,
                 "has_rsvped": true,
+                "accommodation": accommodation
             };
 
             if(title === 'button' && pos === 1 && count<new_people.length){

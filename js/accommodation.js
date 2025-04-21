@@ -54,7 +54,6 @@ window.onload = function () {
          data[tmp[0]] = tmp[1];
     }
     var valid_data = verify_from_code(data.id);
-    console.log(valid_data);
     document.getElementById('validation-code').value = data.id;
     var innerHtml = "";
     if(valid_data.valid === false){
