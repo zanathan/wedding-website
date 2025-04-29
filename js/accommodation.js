@@ -46,7 +46,31 @@ var accommodation_option = function (data){
         Cost: ${data.cost}<br/>
         Please reach out to Jonathan or Rosanna to sort out payment for this accommodation.<br/>
         Please also note the accommodation includes dinner the night before the wedding and all breakfasts.
-    </p>`
+    </p>
+    <div class="row">
+        <div class="col-md-6 col-sm-12 col-xs-12 leftcol" text-align="right">
+            <h5>Pay in Rands</h5>
+            <p>Bank: FNB/RMB<br/>
+            Account Holder: Jonathan Julyan<br/>
+            Account Type: FNB Fusion Premier Account<br/>
+            Account Number: 62436721254<br/>
+            Branch Code: 250655<br/>
+            Ref: ${data.code}</p>
+        </div>
+        <div class="col-md-6 col-sm-12 col-xs-12 rightcol">
+            <h5>Pay in Euros</h5>
+            <h6>Transfer<h6>
+            Beneficiary: Jonathan Julyan<br/>
+            IBAN: ES85 1583 0001 1890 6613 8855<br/>
+            BIC / SWIFT code: REVOESM2<br/>
+            Bank Name and Address: Revolut Bank UAB,<br/> Calle Príncipe de Vergara 132, 4 planta, 28002, Madrid, Spain<br/>
+            Ref: ${data.code}</p>
+            <h6>Revolut<h6>
+            <p><a href="http://revolut.me/jonojulyan">@jonojulyan</a><br/>
+            <a href="http://revolut.me/rosannada">@rosannada</a>
+            </p>
+        </div>
+    </div>`
 }
 
 window.onload = function () {
