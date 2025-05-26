@@ -59,14 +59,7 @@ var accommodation_option = function (data){
         </div>
         <div class="col-md-6 col-sm-12 col-xs-12 rightcol">
             <h5>Pay in Euros</h5>
-            <h6>Transfer<h6>
-            Beneficiary: Jonathan Julyan<br/>
-            IBAN: ES85 1583 0001 1890 6613 8855<br/>
-            BIC / SWIFT code: REVOESM2<br/>
-            Bank Name and Address: Revolut Bank UAB,<br/> Calle Príncipe de Vergara 132, 4 planta, 28002, Madrid, Spain<br/>
-            Ref: ${data.code}</p>
-            <h6>Revolut<h6>
-            <p><a href="http://revolut.me/jonojulyan">@jonojulyan</a><br/>
+            <p>Revolut <br/>
             <a href="http://revolut.me/rosannada">@rosannada</a>
             </p>
         </div>

@@ -230,8 +230,8 @@ $(document).ready(function () {
                 // Show error alert
                 $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> Your invite code is incorrect.'));
             } else {
-                // Redirect to home.html if the code is valid
-                window.location.href = "home.html?id=" + encodeURIComponent(code);
+                // Redirect to invitation.html if the code is valid
+                window.location.href = "invitation.html?id=" + encodeURIComponent(code);
             }
         }, 0); // Delay is set to 0 milliseconds; enough to allow UI rendering
     });
