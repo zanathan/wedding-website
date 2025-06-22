@@ -46,6 +46,13 @@ var data_div = function (valid_data){
     valid_data.data.forEach(function (item, index) {
         checked="";
         style="";
+        dietry_checked="";
+        dietry_style="";
+        console.log(item.dietry_requirements);
+        if(item.dietry_requirements===""){
+            dietry_checked="checked";
+            dietry_style="display: none;"
+        }
         if(item.rsvp===true){
             checked = "checked";
         }
@@ -75,8 +82,13 @@ var data_div = function (valid_data){
                                     placeholder="Email address" required value="`+item.email+`">
                             </div>
                             <div class="col-md-10 col-md-offset-1">
-                                <label for="dietry_requirements-`+index+`">Dietry Requirements:</label><br>
-                                <textarea style="height: 56px;" name="dietry_requirements" id="dietry_requirements-`+index+`" 
+                                <label for="dietry_requirements_checkbox-`+index+`">I have no dietry requirements:</label>
+                                <input type="checkbox" class="rsvp-submission-checkbox" name="dietry_requirements_checkbox" id="dietry_requirements_checkbox-`+index+`" title="I have no dietry requirements."
+                                    required `+dietry_checked+` onclick=dietry_toggle(`+index+`,`+false+`)>
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <label id="dietry_requirements_label-`+index+`" for="dietry_requirements-`+index+`" style="`+dietry_style+`">Dietry Requirements:</label><br>
+                                <textarea style="height: 56px;`+dietry_style+`" name="dietry_requirements" id="dietry_requirements-`+index+`" 
                                 placeholder="Please list any dietry requirements we should be aware of." 
                                 required rows="3" cols="50">`+item.dietry_requirements+`</textarea>
                             </div>
@@ -285,6 +297,23 @@ var update_accomodation_details = function (data) {
     });
 };
 
+var dietry_toggle = function (index, val){
+    is_new = '';
+    if(val===true){
+        is_new = 'new_';
+    }
+    const checked = document.getElementById(is_new+'dietry_requirements_checkbox-'+index).checked;
+    if(checked===true){
+        document.getElementById(is_new+'dietry_requirements_label-'+index).style.display = "none";
+        document.getElementById(is_new+'dietry_requirements-'+index).style.display = "none";
+        document.getElementById(is_new+'dietry_requirements-'+index).value = "";
+    }
+    else{
+        document.getElementById(is_new+'dietry_requirements_label-'+index).style.display = "";
+        document.getElementById(is_new+'dietry_requirements-'+index).style.display = "";
+    }
+}
+
 var remove_plus_one = function (index){
     document.getElementById('remove_button-1-'+index).style.display = "none";
     document.getElementById('button-1-'+index).style.display = "";
@@ -321,11 +350,16 @@ var add_plus_one = function (index){
                                 <input type="text" name="email" id="new_email-`+index+`"                              
                                     placeholder="Email address" required value="">
                             </div>
+                             <div class="col-md-10 col-md-offset-1">
+                                <label for="new_dietry_requirements_checkbox-`+index+`">I have no dietry requirements:</label>
+                                <input type="checkbox" class="rsvp-submission-checkbox" name="new_dietry_requirements_checkbox" id="new_dietry_requirements_checkbox-`+index+`" title="I have no dietry requirements."
+                                    required `+dietry_checked+` onclick=dietry_toggle(`+index+`,`+true+`)>
+                            </div>
                             <div class="col-md-10 col-md-offset-1">
-                                <label for="new_dietry_requirements-`+index+`">Dietry Requirements:</label><br>
-                                <textarea style="height: 56px;" name="dietry_requirements" id="new_menu-`+index+`" 
+                                <label id="new_dietry_requirements_label-`+index+`" for="new_dietry_requirements-`+index+`" style="display: none;">Dietry Requirements:</label><br>
+                                <textarea style="height: 56px; display: none;" name="dietry_requirements" id="new_dietry_requirements-`+index+`" 
                                 placeholder="Please list any dietry requirements we should be aware of." 
-                                required rows="3" cols="50">`+item.dietry_requirements+`</textarea>
+                                required rows="3" cols="50"></textarea>
                             </div>
                             <div class="col-md-10 col-md-offset-1">
                                 <label for="new_song_request-`+index+`">Song Request:</label><br>
