@@ -1,54 +1,44 @@
-var data_div = function (valid_data){
-    var innerHtml = `<form id="rsvp-submission" class="rsvp-submission">
-        `;
+var accommodationCheckbox = function (valid_data){
     if(valid_data.accommodation){
         var accommodation = accommodation_from_code(valid_data.code).data[0];
-        document.getElementById('accommodation-data').value = accommodation;
         var has_accepted = "";
         if(accommodation.rsvp===true){
             has_accepted = "checked";
         }
-        innerHtml += `<div class="container">
-                        <div class="row rsvp-submission-input-group">
-                            <p>
-                                You have been selected to stay at the wedding venue.<br/>
-                                Accommodation option: ${accommodation.room_option}<br/>
-                                Cost: ${accommodation.cost}<br/>
-                                Please reach out to Jonathan or Rosanna to sort out payment for this accommodation.<br/>
-                                Please also note the accommodation includes dinner the night before the wedding and all breakfasts.
-                            </p>
-                            <div class="col-md-6 col-sm-12 col-xs-12 leftcol" text-align="right">
-                                <h5>Pay in Rands</h5>
-                                <p>Bank: FNB/RMB<br/>
-                                Account Holder: Jonathan Julyan<br/>
-                                Account Type: FNB Fusion Premier Account<br/>
-                                Account Number: 62436721254<br/>
-                                Branch Code: 250655<br/>
-                                Ref: ${valid_data.code}</p>
-                            </div>
-                            <div class="col-md-6 col-sm-12 col-xs-12 rightcol">
-                                <h5>Pay in Euros</h5>
-                                <p>Revolut <br/>
-                                <a href="http://revolut.me/rosannada">@rosannada</a>
-                                </p>
-                            </div>
-                            <div class="col-md-10 col-md-offset-1">
-                                <label for="accommodation">Tick this box to confirm you will be taking the accommodation:</label>
-                                <input type="checkbox" class="rsvp-submission-checkbox" name="accommodation_checkbox" id="accommodation" title="Tick this box to confirm you will be taking the accommodation."
-                                    required `+has_accepted+`>
-                            </div>
-                        </div>
-                    </div>
-                    <br>`
+        return `<div class="col-md-10 col-md-offset-1">
+            <label for="accommodation">Tick this box to confirm you will be taking the accommodation:</label>
+            <input type="checkbox" class="rsvp-submission-checkbox" name="accommodation_checkbox" id="accommodation" title="Tick this box to confirm you will be taking the accommodation."
+                required `+has_accepted+`>
+        </div>`;
+    }
+    else {
+        return '';
+    }
+}
+
+var data_div = function (valid_data){
+    var innerHtml = `<form id="rsvp-submission" class="rsvp-submission">
+        `;
+    
+    if(valid_data.accommodation){
+        var accommodation = accommodation_from_code(valid_data.code).data[0];
+        document.getElementById('accommodation-data').value = accommodation;
+        innerHtml += `<p>
+                    You have been selected to stay at the wedding venue.<br/>
+                    Accommodation option: ${accommodation.room_option}<br/>
+                    Cost: ${accommodation.cost}<br/>
+                    Please reach out to Jonathan or Rosanna to sort out payment for this accommodation.<br/>
+                    Please also note the accommodation includes dinner the night before the wedding and all breakfasts.
+                </p>  
+            <br>`
 
     }
-    
+
     valid_data.data.forEach(function (item, index) {
         checked="";
         style="";
         dietry_checked="";
         dietry_style="";
-        console.log(item.dietry_requirements);
         if(item.dietry_requirements===""){
             dietry_checked="checked";
             dietry_style="display: none;"
@@ -75,8 +65,9 @@ var data_div = function (valid_data){
                                 <label for="rsvp-`+index+`">Tick this box to mark as attending:</label>
                                 <input type="checkbox" class="rsvp-submission-checkbox" name="rsvp_checkbox" id="rsvp-`+index+`" title="Tick the box to mark as attending."
                                     required `+checked+`>
-                            </div>
-                            <div class="col-md-10 col-md-offset-1">
+                            </div>`
+                            + accommodationCheckbox(valid_data) +
+                            `<div class="col-md-10 col-md-offset-1">
                                 <label for="email-`+index+`">Enter your email adress:</label>
                                 <input type="text" name="email" id="email-`+index+`"                              
                                     placeholder="Email address" required value="`+item.email+`">
@@ -110,11 +101,36 @@ var data_div = function (valid_data){
                     <br>
                     `
     });
+
     innerHtml += `<button type="button" id="button-0" class="btn-fill rsvp-submission-btn" onclick="on_data_submit()">
                         Submit
                     </button>
                 </form>
                 `
+
+    if(valid_data.accommodation){
+        innerHtml += `<br>
+        <div class="container">
+            <h5>Payment details</h5>
+            <div class="col-md-6 col-sm-12 col-xs-12 leftcol" text-align="right">
+                <h5>Pay in Rands</h5>
+                <p>Bank: FNB/RMB<br/>
+                Account Holder: Jonathan Julyan<br/>
+                Account Type: FNB Fusion Premier Account<br/>
+                Account Number: 62436721254<br/>
+                Branch Code: 250655<br/>
+                Ref: ${valid_data.code}</p>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12 rightcol">
+                <h5>Pay in Euros</h5>
+                <p>Revolut <br/>
+                <a href="http://revolut.me/rosannada">@rosannada</a>
+                </p>
+            </div>
+        </div>
+        <br>`
+
+    }
     return innerHtml;
 }
 
