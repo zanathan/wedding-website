@@ -12,7 +12,16 @@ var accommodationCheckbox = function (valid_data){
         </div>`;
     }
     else {
-        return '';
+        return `<div class="col-md-10 col-md-offset-1">
+            <label for="accommodation">I would like to attend the pre-wedding dinner:</label>
+            <input type="checkbox" class="rsvp-submission-checkbox" name="dinner_checkbox" id="accommodation" title="I would like to attend the pre-wedding dinner."
+                required>
+        </div>
+        <div class="col-md-10 col-md-offset-1">
+            <label for="accommodation">I would like to attend the breakfast the day after the wedding:</label>
+            <input type="checkbox" class="rsvp-submission-checkbox" name="breakfast_checkbox" id="accommodation" title="Tick this box to confirm you will be taking the accommodation."
+                required>
+        </div>`;
     }
 }
 
