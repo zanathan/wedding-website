@@ -1,26 +1,37 @@
-var accommodationCheckbox = function (valid_data){
-    if(valid_data.accommodation){
-        var accommodation = accommodation_from_code(valid_data.code).data[0];
+var accommodationCheckbox = function (item, index, is_new){
+    var new_val = "";
+    if(is_new === true){
+        new_val = "new_" 
+    }
+    if(item.has_accommodation===true){
         var has_accepted = "";
-        if(accommodation.rsvp===true){
+        if(item.accommodation===true){
             has_accepted = "checked";
         }
         return `<div class="col-md-10 col-md-offset-1">
             <label for="accommodation">Tick this box to confirm you will be taking the accommodation:</label>
-            <input type="checkbox" class="rsvp-submission-checkbox" name="accommodation_checkbox" id="accommodation" title="Tick this box to confirm you will be taking the accommodation."
+            <input type="checkbox" class="rsvp-submission-checkbox" name="accommodation_checkbox" id="`+new_val+`accommodation-`+index+`" title="Tick this box to confirm you will be taking the accommodation."
                 required `+has_accepted+`>
         </div>`;
     }
     else {
+        var has_dinner = "";
+        var has_breakfast = "";
+        if(item.pre_wedding_dinner===true){
+            has_dinner = "checked";
+        }
+        if(item.post_wedding_breakfast===true){
+            has_breakfast = "checked";
+        }
         return `<div class="col-md-10 col-md-offset-1">
             <label for="accommodation">I would like to attend the pre-wedding dinner:</label>
-            <input type="checkbox" class="rsvp-submission-checkbox" name="dinner_checkbox" id="accommodation" title="I would like to attend the pre-wedding dinner."
-                required>
+            <input type="checkbox" class="rsvp-submission-checkbox" name="dinner_checkbox" id="`+new_val+`pre_wedding_dinner-`+index+`" title="I would like to attend the pre-wedding dinner."
+                required `+has_dinner+`>
         </div>
         <div class="col-md-10 col-md-offset-1">
             <label for="accommodation">I would like to attend the breakfast the day after the wedding:</label>
-            <input type="checkbox" class="rsvp-submission-checkbox" name="breakfast_checkbox" id="accommodation" title="Tick this box to confirm you will be taking the accommodation."
-                required>
+            <input type="checkbox" class="rsvp-submission-checkbox" name="breakfast_checkbox" id="`+new_val+`post_wedding_breakfast-`+index+`" title="I would like to attend the breakfast the day after the wedding."
+                required `+has_breakfast+`>
         </div>`;
     }
 }
@@ -29,7 +40,7 @@ var data_div = function (valid_data){
     var innerHtml = `<form id="rsvp-submission" class="rsvp-submission">
         `;
     
-    if(valid_data.accommodation){
+    if(valid_data.has_accommodation){
         var accommodation = accommodation_from_code(valid_data.code).data[0];
         document.getElementById('accommodation-data').value = accommodation;
         innerHtml += `<p>
@@ -48,7 +59,7 @@ var data_div = function (valid_data){
         style="";
         dietry_checked="";
         dietry_style="";
-        if(item.dietry_requirements===""){
+        if(item.dietry_requirements==="None"){
             dietry_checked="checked";
             dietry_style="display: none;"
         }
@@ -75,7 +86,7 @@ var data_div = function (valid_data){
                                 <input type="checkbox" class="rsvp-submission-checkbox" name="rsvp_checkbox" id="rsvp-`+index+`" title="Tick the box to mark as attending."
                                     required `+checked+`>
                             </div>`
-                            + accommodationCheckbox(valid_data) +
+                            + accommodationCheckbox(item, index, false) +
                             `<div class="col-md-10 col-md-offset-1">
                                 <label for="email-`+index+`">Enter your email adress:</label>
                                 <input type="text" name="email" id="email-`+index+`"                              
@@ -117,7 +128,7 @@ var data_div = function (valid_data){
                 </form>
                 `
 
-    if(valid_data.accommodation){
+    if(valid_data.has_accommodation){
         innerHtml += `<br>
         <div class="container">
             <h5>Payment details</h5>
@@ -164,7 +175,7 @@ var accommodation_from_code = function(code){
 }
 
 var data_from_code = function (code) {
-    var app_url = "https://script.google.com/macros/s/AKfycbxg6cfCjFvgdcbBghtEeNwZU354lSQlZSvuxM_UBHQGFdwZbcmq0qOtRQH7kF1kl3c/exec";
+    var app_url = "https://script.google.com/macros/s/AKfycbyAgYTVPiR6Vo7VSPLhtRhHPGUoUsvaygx5ECwSOHDC7_2u4f_doZ00Dp0h-LdIrLI/exec";
     app_url = app_url + "?code=" + code + "&verifyonly=" + false;
     var data_response = {};
     $.ajax({
@@ -193,9 +204,8 @@ window.onload = function () {
     }
     var valid_data = data_from_code(data.id);
     document.getElementById('validation-code').value = data.id;
-    document.getElementById('accommodation').value = valid_data.accommodation;
+    document.getElementById('accommodation').value = valid_data.has_accommodation;
     var innerHtml = "That is not a valid code!"
-    console.log(valid_data);
     if (valid_data.valid === true){
         innerHtml = data_div(valid_data);
     }
@@ -210,28 +220,10 @@ var on_data_submit = function (e) {
         var elements = document.getElementById('rsvp-submission').elements;
         var code = document.getElementById('validation-code').value;
         var accommodation = document.getElementById('accommodation').value
-        if(accommodation){
-            var accommodation_data = document.getElementById('accommodation-data').value
-            var accommodation_dict = {
-                code: code,
-                room_option: accommodation_data.room_option,
-                room_code: accommodation_data.room_code,
-                sharing: accommodation_data.sharing,
-                cost: accommodation_data.cost,
-                rsvp: elements[startVal].checked,
-                has_rsvp: true,	
-                has_paid: accommodation_data.has_paid
-            }
-            update_accomodation_details(accommodation_dict);
-            startVal = 1;
-        }
         var data = [];
         var new_people = [];
         var count = -1;
         for (var i = startVal; i < elements.length; i++){
-            if(elements[i].id === 'accommodation'){
-                continue;
-            }
             var id = elements[i].id.split('-');
             var title = id[0];
             var pos = parseInt(id[1]);
@@ -257,6 +249,24 @@ var on_data_submit = function (e) {
                 if( title === 'rsvp'){
                     dict[title] = elements[i].checked;
                 }
+                else if(title === 'accommodation'){
+                    dict['has_accommodation'] = true;
+                    dict[title] = elements[i].checked;
+                    if(elements[i].checked === true){
+                        dict['pre_wedding_dinner'] = true
+                        dict['post_wedding_breakfast'] = true
+                    }
+                }
+                else if(title === 'dietry_requirements_checkbox'){
+                    if(elements[i].checked === true){
+                        dict['dietry_requirements'] = 'None'
+                    }
+                }
+                else if(title === 'dietry_requirements'){
+                    if(elements[i].value === ''){
+                        dict['dietry_requirements'] = 'None'
+                    }
+                }
                 else{
                     dict[title] = elements[i].value;
                 }
@@ -272,6 +282,24 @@ var on_data_submit = function (e) {
 
                 if( title === 'rsvp'){
                     dict[title] = elements[i].checked;
+                }
+                else if(title === 'accommodation'){
+                    dict['has_accommodation'] = true;
+                    dict[title] = elements[i].checked;
+                    if(elements[i].checked === true){
+                        dict['pre_wedding_dinner'] = true
+                        dict['post_wedding_breakfast'] = true
+                    }
+                }
+                else if(title === 'dietry_requirements_checkbox'){
+                    if(elements[i].checked === true){
+                        dict['dietry_requirements'] = 'None'
+                    }
+                }
+                else if(title === 'dietry_requirements'){
+                    if(elements[i].value === ''){
+                        dict['dietry_requirements'] = 'None'
+                    }
                 }
                 else{
                     dict[title] = elements[i].value;
@@ -292,7 +320,7 @@ var on_data_submit = function (e) {
 
 // update details
 var update_rsvp_details = function (data) {
-    var app_url = "https://script.google.com/macros/s/AKfycbxg6cfCjFvgdcbBghtEeNwZU354lSQlZSvuxM_UBHQGFdwZbcmq0qOtRQH7kF1kl3c/exec"; 
+    var app_url = "https://script.google.com/macros/s/AKfycbyAgYTVPiR6Vo7VSPLhtRhHPGUoUsvaygx5ECwSOHDC7_2u4f_doZ00Dp0h-LdIrLI/exec"; 
     $.ajax({
         url: app_url,
         method: "POST",
@@ -369,8 +397,9 @@ var add_plus_one = function (index){
                                 <label for="new_rsvp-`+index+`">Tick this box to mark as attending:</label>
                                 <input type="checkbox" name="rsvp_checkbox" id="new_rsvp-`+index+`" title="Tick the box to mark as attending."
                                     required checked>
-                            </div>
-                            <div class="col-md-10 col-md-offset-1">
+                            </div>`
+                            + accommodationCheckbox({'has_accommodation': document.getElementById('accommodation').value}, index, true) +
+                            `<div class="col-md-10 col-md-offset-1">
                                 <label for="new_email-`+index+`">Enter your email adress:</label>
                                 <input type="text" name="email" id="new_email-`+index+`"                              
                                     placeholder="Email address" required value="">
@@ -378,11 +407,11 @@ var add_plus_one = function (index){
                              <div class="col-md-10 col-md-offset-1">
                                 <label for="new_dietry_requirements_checkbox-`+index+`">I have no dietry requirements:</label>
                                 <input type="checkbox" class="rsvp-submission-checkbox" name="new_dietry_requirements_checkbox" id="new_dietry_requirements_checkbox-`+index+`" title="I have no dietry requirements."
-                                    required `+dietry_checked+` onclick=dietry_toggle(`+index+`,`+true+`)>
+                                    required onclick=dietry_toggle(`+index+`,`+true+`)>
                             </div>
                             <div class="col-md-10 col-md-offset-1">
-                                <label id="new_dietry_requirements_label-`+index+`" for="new_dietry_requirements-`+index+`" style="display: none;">Dietry Requirements:</label><br>
-                                <textarea style="height: 56px; display: none;" name="dietry_requirements" id="new_dietry_requirements-`+index+`" 
+                                <label id="new_dietry_requirements_label-`+index+`" for="new_dietry_requirements-`+index+`" style="">Dietry Requirements:</label><br>
+                                <textarea style="height: 56px;" name="dietry_requirements" id="new_dietry_requirements-`+index+`" 
                                 placeholder="Please list any dietry requirements we should be aware of." 
                                 required rows="3" cols="50"></textarea>
                             </div>

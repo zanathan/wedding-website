@@ -1,5 +1,5 @@
 var verify_from_code = function (code) {
-    var app_url = "https://script.google.com/macros/s/AKfycbxg6cfCjFvgdcbBghtEeNwZU354lSQlZSvuxM_UBHQGFdwZbcmq0qOtRQH7kF1kl3c/exec";
+    var app_url = "https://script.google.com/macros/s/AKfycbyAgYTVPiR6Vo7VSPLhtRhHPGUoUsvaygx5ECwSOHDC7_2u4f_doZ00Dp0h-LdIrLI/exec";
     app_url = app_url + "?code=" + code + "&verifyonly=" + true;
     var data_response = {};
     $.ajax({
@@ -80,7 +80,7 @@ window.onload = function () {
     if(valid_data.valid === false){
         window.location.href = "index.html";
     }
-    if (valid_data.valid === true && valid_data.accommodation === true){
+    if (valid_data.valid === true && valid_data.has_accommodation === true){
         var acc_data = accommodation_from_code(data.id);
         innerHtml = accommodation_option(acc_data.data[0]);
     }
