@@ -324,6 +324,7 @@
     
     .hero .hero-content img {
         width: 65%;
+        margin-top: -10px;
     }
 
     .hero .btn {

@@ -293,7 +293,6 @@ Hero
 .hero {
   min-height: 750px;
   max-height: 820px;
-  margin-top: -90px;
   margin-bottom: 0px;
   background: url('../img/0081.jpg') center center;
   -webkit-background-size: cover;
@@ -326,6 +325,7 @@ Hero
   .hero-content img {
     width: 55%;
     margin-bottom: 10%;
+    margin-top: -190px;
   }
 }
 .navigation {
