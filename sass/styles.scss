@@ -286,8 +286,15 @@ Hero
   }
 }
 
+.image-style {
+  max-height: 320px;
+}
+
 .hero {
   min-height: 750px;
+  max-height: 820px;
+  margin-top: -90px;
+  margin-bottom: 0px;
   background: url('../img/0081.jpg') center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -842,7 +849,9 @@ Google map
 RSVP form
 ========================================================================== */
 .img-content{
-    margin-bottom: -130px;
+    margin-top: 110px;
+    margin-bottom: -60px;
+    max-height: 500px;
 }
 .rsvp {
   padding-top: 100px;
