@@ -59,6 +59,9 @@ section .header {
 .section-padding {
   padding: $section-padding;
 }
+.heroless {
+  margin-top: 80px;
+}
 .section-border {
   border-bottom: 1px solid $keyline-color;
 }
@@ -926,6 +929,7 @@ RSVP form
     .rsvp-submission-checkbox{
       width: 20px;
       height: 20px;
+      accent-color: gray;
     }
     .rsvp-submission-btn {
       padding: 15px 0;
