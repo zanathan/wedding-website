@@ -39,31 +39,15 @@ var accommodation_from_code = function (code) {
 };
 
 var accommodation_option = function (data){
-    return `<p>
-        You have been selected to stay at the wedding venue.<br/>
-        Please indicate if you will be taking the accommodation when you rsvp.<br/>
-        Accommodation option: ${data.room_option}<br/>
-        Cost: ${data.cost}<br/>
-        Please reach out to Jonathan or Rosanna to sort out payment for this accommodation.<br/>
-        Please also note the accommodation includes dinner the night before the wedding and all breakfasts.
-    </p>
-    <div class="row">
-        <div class="col-md-6 col-sm-12 col-xs-12 leftcol" text-align="right">
-            <h5>Pay in Rands</h5>
-            <p>Bank: FNB/RMB<br/>
-            Account Holder: Jonathan Julyan<br/>
-            Account Type: FNB Fusion Premier Account<br/>
-            Account Number: 62436721254<br/>
-            Branch Code: 250655<br/>
-            Ref: ${data.code}</p>
-        </div>
-        <div class="col-md-6 col-sm-12 col-xs-12 rightcol">
-            <h5>Pay in Euros</h5>
-            <p>Revolut <br/>
-            <a href="http://revolut.me/rosannada">@rosannada</a>
-            </p>
-        </div>
-    </div>`
+    return `<h3>You're invited to stay at the venue with us!</h3>
+    <p>
+        If this message has popped up, it only means one thing:<br/>
+        you are among the elite few who have been selected to spend your whole weekend on the property with us. (woohoo)<br/>
+        Please let us know in the RSVP section if you will be staying at the venue. <br/><br/>
+
+        The venue has asked to please not be contacted, so please let us know if you have any questions.<br/>
+        The cost of your accomidation includes your accommodation and all meals.
+    </p>`
 }
 
 window.onload = function () {

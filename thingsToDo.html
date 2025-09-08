@@ -16,7 +16,7 @@
     <meta name="theme-color" content="#ffffff">
     <meta property="og:title" content="The wedding of Rosanna & Jonathan">
     <meta property="og:description" content="We would like to invite you to our big day.">
-    <meta property="og:image" content="img/0079.jpg">
+    <meta property="og:image" content="img/0081.jpg">
     <meta property="og:type" content="website">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="img/logo JR white.png">
@@ -75,8 +75,8 @@
                             <li><a href="javascript:addIDToURL('invitation.html','#intro');">Invitation</a></li>
                             <li><a href="javascript:addIDToURL('accommodation.html','');">Accommodation</a></li>
                             <li><a href="javascript:addIDToURL('ourStory.html','');">Our Story</a></li>
-                            <li><a href="#eng-pics">Engagement Album</a></li>
-                            <li><a href="javascript:addIDToURL('thingsToDo.html','');">Things to do</a></li>
+                            <li><a href="javascript:addIDToURL('album.html','');">Engagement Album</a></li>
+                            <li><a href="">Things to do</a></li>
                         </ul>
                         <ul class="member-actions">
                             <li><a class="btn btn-rsvp btn-small" href="javascript:addIDToURL('rsvp.html','');">
@@ -92,26 +92,19 @@
         </header>
     </section>
 </section>
- 
 
-<section id="eng-pics" class="section-padding">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 text-center heroless">
-                <h3 class="header">Engagement Pics</h3>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div id="all-photos"></div>
+<section id="thingsToDo" class="section-padding heroless">
     <div class="container">
-        <div class="row hidden-lg hidden-md hidden-xs">
-            <div class="col-xs-12 section-border section-padding"></div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h3>Places to see!</h3>
+                <p>We have decided that if we aren't sick of each other yet, we probably never will be. The only logical way to test this is by adding jewelry to our lives.<br/><br/>
+                    We are so excited for this new chapter and to celebrate our love story with you.
+                </p>
+            </div>
         </div>
     </div>
 </section>
-
-
 
 <footer>
     <div class="container">
@@ -132,42 +125,6 @@
 <script src="js/vendor/ouical.js"></script>
 <script src="js/scripts.min.js"></script>
 <script src="js/codeCheck.js"></script>
-<script>
-    document.getElementById("all-photos").innerHTML = get_photos();
-    
-    function get_photos()
-    {
-        var innerHtml = '<div class="row">';
-        for (var i = 1; i < 49; i++) {
-            var path = "img/all_eng_pics/00"
-            if (i<10){
-                path += '0'
-                path +=i
-                path += '.jpg"'
-            }
-            else{
-                path +=i
-                path += '.jpg"'
-            }
-            innerHtml += `<div class="col-md-2">
-                    <a class="fancybox" rel="group2" href="` + path + `">
-                        <div class="img-wrap">
-                            <div class="overlay">
-                                <i class="fa fa-search"></i>
-                            </div>
-                            <img src="` + path + `" alt=""/>
-                        </div>
-                    </a>
-                </div>`
-            if (i%4 ===0){
-                innerHtml += `</div>
-                <div class="row">` 
-            }
-        }
-        innerHtml += '</div>'
-        return innerHtml;
-    }
-</script>
 <!-- Google Analytics -->
 <script>
     (function (i, s, o, g, r, a, m) {
