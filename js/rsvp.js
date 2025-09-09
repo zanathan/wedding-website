@@ -20,19 +20,19 @@ var eventCheckboxes = function (item, index, is_new, hide){
         has_rejected = "checked";
     }
     return `<div class="col-md-10 col-md-offset-1">
-        <label id="`+new_val+`pre_wedding_dinner_label-`+index+`" for="`+new_val+`pre_wedding_dinner-`+index+`" style="`+hide_style+`">Please send me the details for the Welcome Dinner:</label>
         <input type="checkbox" class="rsvp-submission-checkbox" name="dinner_checkbox" id="`+new_val+`pre_wedding_dinner-`+index+`" title="Please send me the details for the Welcome Dinner."
             required `+has_dinner+` style="`+hide_style+`" onclick={event_selected_toggle(`+index+`,`+is_new+`);}>
+        <label id="`+new_val+`pre_wedding_dinner_label-`+index+`" for="`+new_val+`pre_wedding_dinner-`+index+`" style="`+hide_style+`"> Please send me the details for the Welcome Dinner</label>
     </div>
     <div class="col-md-10 col-md-offset-1">
-        <label id="`+new_val+`post_wedding_breakfast_label-`+index+`" for="`+new_val+`post_wedding_breakfast-`+index+`" style="`+hide_style+`">Please send me the details for the Farwell Breakfast:</label>
         <input type="checkbox" class="rsvp-submission-checkbox" name="breakfast_checkbox" id="`+new_val+`post_wedding_breakfast-`+index+`" title="Please send me the details for the Farwell Breakfast."
             required `+has_breakfast+` style="`+hide_style+`" onclick={event_selected_toggle(`+index+`,`+is_new+`);}>
+        <label id="`+new_val+`post_wedding_breakfast_label-`+index+`" for="`+new_val+`post_wedding_breakfast-`+index+`" style="`+hide_style+`"> Please send me the details for the Farwell Breakfast</label>
     </div>
     <div class="col-md-10 col-md-offset-1">
-        <label id="`+new_val+`not_attending_other_events_label-`+index+`" for="`+new_val+`not_attending_other_events-`+index+`"  style="`+hide_style+`">Unfortunately I will not attend either:</label>
         <input type="checkbox" class="rsvp-submission-checkbox" name="not_attending_other_events_checkbox" id="`+new_val+`not_attending_other_events-`+index+`" title="Unfortunately I will not attend either."
             required `+has_rejected+` style="`+hide_style+`" onclick={no_events_toggle(`+index+`,`+is_new+`);}>
+        <label id="`+new_val+`not_attending_other_events_label-`+index+`" for="`+new_val+`not_attending_other_events-`+index+`"  style="`+hide_style+`"> Unfortunately I will not attend either</label>
     </div>`;
 }
 
@@ -106,7 +106,32 @@ var event_toggle = function (index, val){
     }
 }
 
+var weddingDayToggle = function (index, val){
+    is_new = '';
+    other = '';
+    if(val===true){
+        is_new = 'new_';
+    }
+    const checked = document.getElementById(is_new+'rsvp-'+index).checked;
+    if(checked===true){
+        document.getElementById(is_new+'declined-'+index).checked = false;
+    }
+}
+
+var declineDayToggle = function (index, val){
+    is_new = '';
+    other = '';
+    if(val===true){
+        is_new = 'new_';
+    }
+    const checked = document.getElementById(is_new+'declined-'+index).checked;
+    if(checked===true){
+        document.getElementById(is_new+'rsvp-'+index).checked = false;
+    }
+}
+
 var accommodationCheckbox = function (item, index, is_new){
+    console.log("item",item);
     var new_val = "";
     if(is_new === true){
         new_val = "new_" 
@@ -114,8 +139,6 @@ var accommodationCheckbox = function (item, index, is_new){
     if(item.has_accommodation===true){
         var has_accepted = "";
         var has_rejected = "";
-        var header = "";
-        var info_text = ""
         if(item.accommodation===true){
             has_accepted = "checked";
             header = "Accommodation"
@@ -123,22 +146,24 @@ var accommodationCheckbox = function (item, index, is_new){
         if(item.no_accommodation===true){
             has_rejected = "checked";
         }
-        return `<h3>Accommodation</h3>
-        <p>Both the Welcome Dinner and Farewell Breakfast are included in the accommodation. If you do not want to stay at the venue the optional events have a per-person cost. Please tick below and we'll send you the details and pricing closer to the time</p>
-        <div class="col-md-10 col-md-offset-1">
-            <label for="`+new_val+`accommodation-`+index+`">Please send me the accommodation details:</label>
+        return `<div class="col-md-10 col-md-offset-1">
+            <h3>Accommodation</h3>
+            <p>Both the Welcome Dinner and Farewell Breakfast are included in the accommodation. If you do not want to stay at the venue the optional events have a per-person cost. Please tick below and we'll send you the details and pricing closer to the time</p>
             <input type="checkbox" class="rsvp-submission-checkbox" name="accommodation_checkbox" id="`+new_val+`accommodation-`+index+`" title="Please send me the accommodation details."
                 required `+has_accepted+` onclick={checkbox_toggle(`+index+`,`+is_new+`);event_toggle(`+index+`,`+is_new+`);}>
+            <label for="`+new_val+`accommodation-`+index+`"> Please send me the accommodation details</label>
         </div>
         <div class="col-md-10 col-md-offset-1">
-            <label for="`+new_val+`no_accommodation-`+index+`">I will not be taking the accommodation:</label>
             <input type="checkbox" class="rsvp-submission-checkbox" name="no_accommodation_checkbox" id="`+new_val+`no_accommodation-`+index+`" title="I will not be taking the accommodation."
                 required `+has_rejected+` onclick={no_checkbox_toggle(`+index+`,`+is_new+`);event_toggle(`+index+`,`+is_new+`);}>
+            <label for="`+new_val+`no_accommodation-`+index+`"> I will not be taking the accommodation</label>
         </div>`+ eventCheckboxes(item, index, is_new, item.no_accommodation!==true);
     }
     else {
-        return `<h3>Welcome Dinner and Farewell Breakfasts</h3>
-        <p>Both the Welcome Dinner and Farewell Breakfast are optional events with a per-person cost. If you'd like to attend, please tick below and we'll send you the details and pricing closer to the time</p>`+ eventCheckboxes(item, index, is_new, false);
+        return `<div class="col-md-10 col-md-offset-1">
+            <h3>Welcome Dinner and Farewell Breakfasts</h3>
+            <p>Both the Welcome Dinner and Farewell Breakfast are optional events with a per-person cost. If you'd like to attend, please tick below and we'll send you the details and pricing closer to the time</p>
+        </div>`+ eventCheckboxes(item, index, is_new, false);
     }
 }
 
@@ -148,6 +173,7 @@ var data_div = function (valid_data){
 
     valid_data.data.forEach(function (item, index) {
         checked="";
+        declined="";
         style="";
         dietry_checked="";
         dietry_style="";
@@ -158,12 +184,16 @@ var data_div = function (valid_data){
         if(item.rsvp===true){
             checked = "checked";
         }
+        if(item.declined===true){
+            declined = "checked";
+        }
         if(item.plus_one_allowed===false){
             style="display: none;"
         }
         innerHtml += `<div class="container">
                         <div class="row rsvp-submission-input-group">
                             <div class="col-md-10 col-md-offset-1">
+                                <h3>Details</h3>
                                 <label for="name-`+index+`">Name:</label>
                                 <input type="text" name="name" id="name-`+index+`"                              
                                     placeholder="Name" required value="`+item.name+`" disabled>&nbsp;
@@ -179,30 +209,43 @@ var data_div = function (valid_data){
                                     placeholder="Email address" required value="`+item.email+`">
                             </div>
                             <div class="col-md-10 col-md-offset-1">
-                                <label for="rsvp-`+index+`">Tick this box to mark as attending:</label>
-                                <input type="checkbox" class="rsvp-submission-checkbox" name="rsvp_checkbox" id="rsvp-`+index+`" title="Tick the box to mark as attending."
-                                    required `+checked+`>
+                                <h3>Wedding Day</h3>
+                                <p>Will you be joining us on our wedding day?</p>
+                                <input type="checkbox" class="rsvp-submission-checkbox" name="rsvp_checkbox" id="rsvp-`+index+`" title="Joyfully accept."
+                                    required `+checked+` onclick={weddingDayToggle(`+index+`,`+false+`)}>
+                                <label for="rsvp-`+index+`">Joyfully accept</label>
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <input type="checkbox" class="rsvp-submission-checkbox" name="declined" id="declined-`+index+`" title="Regretfully decline."
+                                    required `+declined+` onclick={declineDayToggle(`+index+`,`+false+`)}>
+                                <label for="declined-`+index+`">Regretfully decline</label>
                             </div>`
                             + accommodationCheckbox(item, index, false) +
                             `<div class="col-md-10 col-md-offset-1">
-                                <label for="dietry_requirements_checkbox-`+index+`">I confirm i have no dietary requirements:</label>
+                                <h3>Dietary Requirements</h3>
+                                <p>Please let us know if you have any dietary requirements or allergies</p>
                                 <input type="checkbox" class="rsvp-submission-checkbox" name="dietry_requirements_checkbox" id="dietry_requirements_checkbox-`+index+`" title="I confirm i have no dietary requirements."
                                     required `+dietry_checked+` onclick=dietry_toggle(`+index+`,`+false+`)>
+                                    
+                                <label for="dietry_requirements_checkbox-`+index+`"> I confirm i have no dietary requirements</label>
                             </div>
                             <div class="col-md-10 col-md-offset-1">
-                                <label id="dietry_requirements_label-`+index+`" for="dietry_requirements-`+index+`" style="`+dietry_style+`">Dietry Requirements:</label><br>
                                 <textarea style="height: 56px;`+dietry_style+`" name="dietry_requirements" id="dietry_requirements-`+index+`" 
                                 placeholder="Please list any dietry requirements we should be aware of." 
                                 required rows="3" cols="50">`+item.dietry_requirements+`</textarea>
                             </div>
                             <div class="col-md-10 col-md-offset-1">
-                                <label for="song_request-`+index+`">Song Request:</label><br>
+                                <h3>Song Request</h3>
+                                <p>Got a song (or a few) that will get you on the dance floor? Share your favourite song and we'll try to add it to the playlist!<p>
                                 <textarea name="song" id="song_request-`+index+`" 
-                                placeholder="Song Request. It probably won't play but if you had a song you want to hear put it here." 
                                 required rows="4" cols="50">`+item.song_request+`</textarea>
                             </div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <h3>Share a Memory</h3>
+                                <p>We'd love to include you in our photo collection! Please send us a photo on WhatsApp or email of you with either one (or both) of us — it can be a favourite memory, a funny moment, or just a snap you love.<p>
+                            </div>
                         </div>
-                        <button type="button" id="button-1-`+index+`" class="btn-fill rsvp-submission-btn" onclick="add_plus_one(`+index+`)" style="`+style+`">
+                        <button type="button" id="button-1-`+index+`" class="btn-fill rsvp-submission-btn" onclick="add_plus_one(`+index+`,`+item.has_accommodation+`)" style="`+style+`">
                             Add Plus One
                         </button>
                         <button type="button" id="remove_button-1-`+index+`" class="btn-fill rsvp-submission-btn" onclick="remove_plus_one(`+index+`)" style="display: none;">
@@ -316,6 +359,13 @@ var on_data_submit = function (e) {
                 title = title.replace("new_", "")
                 if( title === 'rsvp'){
                     dict[title] = elements[i].checked;
+                    if(elements[i].checked === true){
+                        elements[i].checked
+                    }
+
+                }
+                else if(title === 'declined'){
+                    dict[title] = elements[i].checked;
                 }
                 else if(title === 'accommodation'){
                     dict['has_accommodation'] = true
@@ -362,6 +412,9 @@ var on_data_submit = function (e) {
                 }
 
                 if( title === 'rsvp'){
+                    dict[title] = elements[i].checked;
+                }
+                else if(title === 'declined'){
                     dict[title] = elements[i].checked;
                 }
                 else if(title === 'accommodation'){
@@ -415,11 +468,45 @@ var on_data_submit = function (e) {
             "rsvps": data,
             "plus_ones": new_people
         }
-        update_rsvp_details(rsvp_data);
-            
-        window.location.href = "invitation.html?id="+encodeURIComponent(code);
+        if(validate_selection(rsvp_data) === true){
+            update_rsvp_details(rsvp_data);
+                
+            window.location.href = "invitation.html?id="+encodeURIComponent(code);
+        }
+        else{
+            document.getElementById('loading').style.display = "none";
+            alert("Please complete all required fields.");
+        }
     }, 0);
 };
+
+var validate_selection = function(rsvp_data){
+    for (var i = 0; i < rsvp_data.rsvps.length; i++){
+        var rsvp = rsvp_data.rsvps[i];
+        if(rsvp.rsvp !== true && rsvp.declined !== true){
+            return false;
+        }
+        if(rsvp.accommodation !== true && rsvp.no_accommodation !== true && rsvp.pre_wedding_dinner !== true && rsvp.post_wedding_breakfast !== true && rsvp.not_attending_other_events !== true ){
+            return false;
+        }
+        if(rsvp.dietry_requirements === ''){
+            return false;
+        }
+    } 
+    for (var i = 0; i < rsvp_data.plus_ones.length; i++){
+        var plus_one = rsvp_data.plus_ones[i];
+        if(plus_one.name === "" || plus_one.surname === ""){
+            return false;
+        }
+        if(plus_one.accommodation !== true && plus_one.no_accommodation !== true && plus_one.pre_wedding_dinner !== true && plus_one.post_wedding_breakfast !== true && plus_one.not_attending_other_events !== true ){
+            return false;
+        }
+        if(plus_one.dietry_requirements === ''){
+            return false;
+        }
+    }
+    return true;
+}
 
 // update details
 var update_rsvp_details = function (data) {
@@ -460,12 +547,10 @@ var dietry_toggle = function (index, val){
     }
     const checked = document.getElementById(is_new+'dietry_requirements_checkbox-'+index).checked;
     if(checked===true){
-        document.getElementById(is_new+'dietry_requirements_label-'+index).style.display = "none";
         document.getElementById(is_new+'dietry_requirements-'+index).style.display = "none";
         document.getElementById(is_new+'dietry_requirements-'+index).value = "";
     }
     else{
-        document.getElementById(is_new+'dietry_requirements_label-'+index).style.display = "";
         document.getElementById(is_new+'dietry_requirements-'+index).style.display = "";
     }
 }
@@ -476,7 +561,7 @@ var remove_plus_one = function (index){
     document.getElementById('new_person-'+index).innerHTML = "";
 };
 
-var add_plus_one = function (index){
+var add_plus_one = function (index, has_accommodation){
     is_going = document.getElementById('rsvp-'+index).checked
     if(is_going === false){
         alert("You cannot add a plus one if you aren't going. Please tick the box before adding a plus one.");
@@ -487,6 +572,7 @@ var add_plus_one = function (index){
                     <div class="container">
                         <div class="row rsvp-submission-input-group">
                             <div class="col-md-10 col-md-offset-1">
+                                <h3>Details</h3>
                                 <label for="new_name-`+index+`">Name:</label>
                                 <input type="text" name="name" id="new_name-`+index+`"                              
                                     placeholder="Name" required value="">&nbsp;
@@ -502,26 +588,33 @@ var add_plus_one = function (index){
                                     placeholder="Email address" required value="">
                             </div>
                             <div class="col-md-10 col-md-offset-1" style="display: none;">
-                                <label for="new_rsvp-`+index+`">Tick this box to mark as attending:</label>
-                                <input type="checkbox" name="rsvp_checkbox" id="new_rsvp-`+index+`" title="Tick the box to mark as attending."
-                                    required checked>
+                                <h3>Wedding Day</h3>
+                                <p>Will you be joining us on our wedding day?</p>
+                                <input type="checkbox" class="rsvp-submission-checkbox" name="new_rsvp_checkbox" id="new_rsvp-`+index+`" title="Joyfully accept."
+                                    required checked onclick={weddingDayToggle(`+index+`,`+true+`)}>
+                                <label for="new_rsvp-`+index+`">Joyfully accept</label>
+                            </div>
+                            <div class="col-md-10 col-md-offset-1" style="display: none;">
+                                <input type="checkbox" class="rsvp-submission-checkbox" name="new_declined" id="new_declined-`+index+`" title="Regretfully decline."
+                                    required onclick={declineDayToggle(`+index+`,`+true+`)}>
+                                <label for="declined-`+index+`">Regretfully decline</label>
                             </div>`
-                            + accommodationCheckbox({'has_accommodation': document.getElementById('accommodation').value}, index, true) +
+                            + accommodationCheckbox({'has_accommodation': has_accommodation, 'accommodation': false, 'no_accommodation': false, 'pre_wedding_dinner': false, 'post_wedding_breakfast': false, 'not_attending_other_events': false}, index, true) +
                             `<div class="col-md-10 col-md-offset-1">
-                                <label for="new_dietry_requirements_checkbox-`+index+`">I confirm i have no dietary requirements:</label>
+                                <h3>Dietary Requirements</h3>
+                                <p>Please let us know if you have any dietary requirements or allergies</p>
                                 <input type="checkbox" class="rsvp-submission-checkbox" name="new_dietry_requirements_checkbox" id="new_dietry_requirements_checkbox-`+index+`" title="I confirm i have no dietary requirements."
                                     required onclick=dietry_toggle(`+index+`,`+true+`)>
+                                <label for="new_dietry_requirements_checkbox-`+index+`">I confirm i have no dietary requirements</label>
                             </div>
                             <div class="col-md-10 col-md-offset-1">
-                                <label id="new_dietry_requirements_label-`+index+`" for="new_dietry_requirements-`+index+`" style="">Dietry Requirements:</label><br>
-                                <textarea style="height: 56px;" name="dietry_requirements" id="new_dietry_requirements-`+index+`" 
-                                placeholder="Please list any dietry requirements we should be aware of." 
+                                <textarea style="height: 56px;" name="dietry_requirements" id="new_dietry_requirements-`+index+`"
                                 required rows="3" cols="50"></textarea>
                             </div>
                             <div class="col-md-10 col-md-offset-1">
-                                <label for="new_song_request-`+index+`">Song Request:</label><br>
+                                <h3>Song Request</h3>
+                                <p>Got a song (or a few) that will get you on the dance floor? Share your favourite song and we'll try to add it to the playlist!<p>
                                 <textarea name="song" id="new_song_request-`+index+`" 
-                                placeholder="Song Request. It probably won't play but if you had a song you want to hear put it here." 
                                 required rows="4" cols="50"></textarea>
                             </div>
                         </div>
