@@ -38,8 +38,8 @@ var accommodation_from_code = function (code) {
     return data_response;
 };
 
-var accommodation_option = function (data){
-    return `<h3>You're invited to stay at the venue with us!</h3>
+var accommodation_option = function (){
+    return (`<h3>You're invited to stay at the venue with us!</h3>
     <p>
         If this message has popped up, it only means one thing:<br/>
         you are among the elite few who have been selected to spend your whole weekend on the property with us. (woohoo)<br/>
@@ -47,7 +47,7 @@ var accommodation_option = function (data){
 
         The venue has asked to please not be contacted, so please let us know if you have any questions.<br/>
         The cost of your accomidation includes your accommodation and all meals.
-    </p>`
+    </p>`)
 }
 
 window.onload = function () {
@@ -65,8 +65,7 @@ window.onload = function () {
         window.location.href = "index.html";
     }
     if (valid_data.valid === true && valid_data.has_accommodation === true){
-        var acc_data = accommodation_from_code(data.id);
-        innerHtml = accommodation_option(acc_data.data[0]);
+        innerHtml = accommodation_option();
     }
     document.getElementById('here').innerHTML = innerHtml;
     document.getElementById('loading').style.display = "none";

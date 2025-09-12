@@ -64,6 +64,8 @@
 <div id="loading" class="fancybox-overlay fancybox-overlay-fixed" style="display: none;">
     <div id="fancybox-loading" class="fancybox-loading"><img src="img/fancybox_loading.gif" alt=""/></div>
 </div>
+<!-- Visual Story images -->
+<div id="all-photos"></div>
 <section >
     <section class="navigation">
         <header>
@@ -76,8 +78,8 @@
                             <li><a href="javascript:addIDToURL('accommodation.html','');">Accommodation</a></li>
                             <li><a href="javascript:addIDToURL('howWeMet.html','');">How We Met</a></li>
                             <li><a href="javascript:addIDToURL('ourStory.html','');">Our Story</a></li>
-                            <li><a href="#eng-pics">Engagement Album</a></li>
-                            <li><a href="javascript:addIDToURL('gift.html','');">Gifts</a></li>
+                            <li><a href="javascript:addIDToURL('album.html','');">Engagement Album</a></li>
+                            <li><a href="#intro">Gifts</a></li>
                         </ul>
                         <ul class="member-actions">
                             <li><a class="btn btn-rsvp btn-small" href="javascript:addIDToURL('rsvp.html','');">
@@ -95,24 +97,23 @@
 </section>
  
 
-<section id="eng-pics" class="section-padding">
-    <div class="container-fluid">
+<section id="intro">
+    <div class="container">
         <div class="row">
             <div class="col-md-12 text-center heroless">
-                <h3 class="header">Engagement Pics</h3>
+                <h3 class="header">Gifts</h3>
             </div>
         </div>
-        
-        <div class="row">
-            <div id="all-photos"></div>
-    <div class="container">
-        <div class="row hidden-lg hidden-md hidden-xs">
-            <div class="col-xs-12 section-border section-padding"></div>
+        <div class="col-md-12 text-center">
+            <p>
+                Your presence at our wedding is the greatest gift of all. Truly, having you celebrate with us means more than anything.
+As we will heading back to Europe, we aren't able to accept physical gifts. If you'd like to honor us with something extra, we would be deeply grateful for a contribution towards our future together.
+We've set up an option for cash gifts or direct bank transfer, which will help us build our next chapter — whether that's creating a home, traveling, or making new memories.
+Thank you for your generosity, love, and support.
+            </p>
         </div>
     </div>
 </section>
-
-
 
 <footer>
     <div class="container">
@@ -133,42 +134,6 @@
 <script src="js/vendor/ouical.js"></script>
 <script src="js/scripts.min.js"></script>
 <script src="js/codeCheck.js"></script>
-<script>
-    document.getElementById("all-photos").innerHTML = get_photos();
-    
-    function get_photos()
-    {
-        var innerHtml = '<div class="row">';
-        for (var i = 1; i < 49; i++) {
-            var path = "img/all_eng_pics/00"
-            if (i<10){
-                path += '0'
-                path +=i
-                path += '.jpg"'
-            }
-            else{
-                path +=i
-                path += '.jpg"'
-            }
-            innerHtml += `<div class="col-md-2">
-                    <a class="fancybox" rel="group2" href="` + path + `">
-                        <div class="img-wrap">
-                            <div class="overlay">
-                                <i class="fa fa-search"></i>
-                            </div>
-                            <img src="` + path + `" alt=""/>
-                        </div>
-                    </a>
-                </div>`
-            if (i%4 ===0){
-                innerHtml += `</div>
-                <div class="row">` 
-            }
-        }
-        innerHtml += '</div>'
-        return innerHtml;
-    }
-</script>
 <!-- Google Analytics -->
 <script>
     (function (i, s, o, g, r, a, m) {

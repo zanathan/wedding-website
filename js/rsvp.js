@@ -177,6 +177,7 @@ var data_div = function (valid_data){
         style="";
         dietry_checked="";
         dietry_style="";
+        under_age_style="";
         if(item.dietry_requirements==="None"){
             dietry_checked="checked";
             dietry_style="display: none;"
@@ -189,6 +190,9 @@ var data_div = function (valid_data){
         }
         if(item.plus_one_allowed===false){
             style="display: none;"
+        }
+        if(item.under_age===false){
+            under_age_style="display: none;"
         }
         innerHtml += `<div class="container">
                         <div class="row rsvp-submission-input-group">
@@ -207,6 +211,11 @@ var data_div = function (valid_data){
                                 <label for="email-`+index+`">Enter your email adress:</label>
                                 <input type="text" name="email" id="email-`+index+`"                              
                                     placeholder="Email address" required value="`+item.email+`">
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <label for="age-`+index+`" style="`+under_age_style+`">Age:</label>
+                                <input style="`+under_age_style+`" type="number" name="age" id="age-`+index+`"                              
+                                    placeholder="Age" required value="`+item.age+`" >&nbsp;
                             </div>
                             <div class="col-md-10 col-md-offset-1">
                                 <h3>Wedding Day</h3>
@@ -240,10 +249,6 @@ var data_div = function (valid_data){
                                 <textarea name="song" id="song_request-`+index+`" 
                                 required rows="4" cols="50">`+item.song_request+`</textarea>
                             </div>
-                            <div class="col-md-10 col-md-offset-1">
-                                <h3>Share a Memory</h3>
-                                <p>We'd love to include you in our photo collection! Please send us a photo on WhatsApp or email of you with either one (or both) of us — it can be a favourite memory, a funny moment, or just a snap you love.<p>
-                            </div>
                         </div>
                         <button type="button" id="button-1-`+index+`" class="btn-fill rsvp-submission-btn" onclick="add_plus_one(`+index+`,`+item.has_accommodation+`)" style="`+style+`">
                             Add Plus One
@@ -257,7 +262,11 @@ var data_div = function (valid_data){
                     `
     });
 
-    innerHtml += `<button type="button" id="button-0" class="btn-fill rsvp-submission-btn" onclick="on_data_submit()">
+    innerHtml += `<div class="col-md-10 col-md-offset-1">
+                        <h3>Share a Memory</h3>
+                        <p>We'd love to include you in our photo collection! Please send us a photo on WhatsApp or email of you with either one (or both) of us — it can be a favourite memory, a funny moment, or just a snap you love.<p>
+                    </div>
+                    <button type="button" id="button-0" class="btn-fill rsvp-submission-btn" onclick="on_data_submit()">
                         Submit
                     </button>
                 </form>
@@ -342,7 +351,9 @@ var on_data_submit = function (e) {
                 "validation_code": code,
                 "plus_one_allowed": false,
                 "has_rsvped": true,
-                "accommodation": accommodation
+                "accommodation": accommodation,
+                "has_accommodation": false,
+                "under_age": false
             };
 
             if(title === 'button' && pos === 1 && count<new_people.length){
@@ -416,6 +427,10 @@ var on_data_submit = function (e) {
                 }
                 else if(title === 'declined'){
                     dict[title] = elements[i].checked;
+                }
+                else if(title === 'age'){
+                    dict['under_age']=true;
+                    dict[title] = elements[i].value;
                 }
                 else if(title === 'accommodation'){
                     dict['has_accommodation'] = true;
