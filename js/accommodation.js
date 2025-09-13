@@ -41,12 +41,10 @@ var accommodation_from_code = function (code) {
 var accommodation_option = function (){
     return (`<h3>You're invited to stay at the venue with us!</h3>
     <p>
-        If this message has popped up, it only means one thing:<br/>
-        you are among the elite few who have been selected to spend your whole weekend on the property with us. (woohoo)<br/>
-        Please let us know in the RSVP section if you will be staying at the venue. <br/><br/>
-
-        The venue has asked to please not be contacted, so please let us know if you have any questions.<br/>
-        The cost of your accomidation includes your accommodation and all meals.
+        If this message has popped up, it only means one thing: you are among the elite few who have been selected to spend your whole weekend on the property with us. (woohoo)<br/>
+        Please let us know in the RSVP section if you will be staying at the venue and we will send you the cost and more information.<br/>
+        The price includes your accommodation, Welcome Dinner, breakfast on Saturday and the Farewell Breakfast. <br/>
+        The venue has asked to please not be contacted, so please let us know if you have any questions.
     </p>`)
 }
 

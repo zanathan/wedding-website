@@ -148,7 +148,7 @@ var accommodationCheckbox = function (item, index, is_new){
         }
         return `<div class="col-md-10 col-md-offset-1">
             <h3>Accommodation</h3>
-            <p>Both the Welcome Dinner and Farewell Breakfast are included in the accommodation. If you do not want to stay at the venue the optional events have a per-person cost. Please tick below and we'll send you the details and pricing closer to the time</p>
+            <p>Please tick below and we'll send you the details and pricing closer to the time. Both the Welcome Dinner and Farewell Breakfast are included in the accommodation. If you do not want to stay at the venue the optional events have a per-person cost.</p>
             <input type="checkbox" class="rsvp-submission-checkbox" name="accommodation_checkbox" id="`+new_val+`accommodation-`+index+`" title="Please send me the accommodation details."
                 required `+has_accepted+` onclick={checkbox_toggle(`+index+`,`+is_new+`);event_toggle(`+index+`,`+is_new+`);}>
             <label for="`+new_val+`accommodation-`+index+`"> Please send me the accommodation details</label>
