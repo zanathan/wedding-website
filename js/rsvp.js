@@ -213,7 +213,7 @@ var data_div = function (valid_data){
                                     placeholder="Email address" required value="`+item.email+`">
                             </div>
                             <div class="col-md-10 col-md-offset-1">
-                                <label for="age-`+index+`" style="`+under_age_style+`">Age:</label>
+                                <label for="age-`+index+`" style="`+under_age_style+`">Age on date of wedding:</label>
                                 <input style="`+under_age_style+`" type="number" name="age" id="age-`+index+`"                              
                                     placeholder="Age" required value="`+item.age+`" >&nbsp;
                             </div>
