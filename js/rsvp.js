@@ -429,7 +429,10 @@ var on_data_submit = function (e) {
                     dict[title] = elements[i].checked;
                 }
                 else if(title === 'age'){
-                    dict['under_age']=true;
+                    console.log('age', elements[i].value)
+                    if(elements[i].value){
+                        dict['under_age']=true;
+                    }
                     dict[title] = elements[i].value;
                 }
                 else if(title === 'accommodation'){
@@ -445,19 +448,25 @@ var on_data_submit = function (e) {
                     dict[title] = elements[i].checked;
                 }
                 else if(title === 'pre_wedding_dinner'){
-                    dict[title] = elements[i].checked;
+                    if(!(title in dict)){
+                        dict[title] = elements[i].checked;
+                    }
                     if(elements[i].checked === true){
                         dict['no_accommodation'] = true
                     }
                 }
                 else if(title === 'post_wedding_breakfast'){
-                    dict[title] = elements[i].checked;
+                    if(!(title in dict)){
+                        dict[title] = elements[i].checked;
+                    }
                     if(elements[i].checked === true){
                         dict['no_accommodation'] = true
                     }
                 }
                 else if(title === 'not_attending_other_events'){
-                    dict[title] = elements[i].checked;
+                    if(!(title in dict)){
+                        dict[title] = elements[i].checked;
+                    }
                     if(elements[i].checked === true){
                         dict['no_accommodation'] = true
                     }
@@ -470,6 +479,8 @@ var on_data_submit = function (e) {
                 else if(title === 'dietry_requirements'){
                     if(elements[i].value === ''){
                         dict['dietry_requirements'] = 'None'
+                    } else {
+                        dict['dietry_requirements'] = elements[i].value
                     }
                 }
                 else{
