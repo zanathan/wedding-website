@@ -236,13 +236,15 @@
     }
 
     .events .leftcol {
-        padding: 0 15px;
+        padding-left: 30px;
+        padding-right: 30px;
         margin-bottom: 15px;
         border-right: none;
     }
 
     .events .rightcol {
-        padding: 0 20px;
+        padding-left: 30px;
+        padding-right: 30px;
     }
     
     #eng-pics .img-wrap {
