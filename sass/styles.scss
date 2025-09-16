@@ -62,6 +62,15 @@ section .header {
 .heroless {
   margin-top: 80px;
 }
+.signoff {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: -30px;
+}
+.gift {
+  margin-top: -40px;
+}
 .section-border {
   border-bottom: 1px solid $keyline-color;
 }

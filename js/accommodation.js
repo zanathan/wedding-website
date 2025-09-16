@@ -43,8 +43,8 @@ var accommodation_option = function (){
     <p>
         If this message has popped up, it only means one thing: you are among the elite few who have been selected to spend your whole weekend on the property with us. (woohoo)<br/>
         Please let us know in the RSVP section if you will be staying at the venue and we will send you the cost and more information.<br/>
-        The price includes your accommodation, Welcome Dinner, breakfast on Saturday and the Farewell Breakfast. <br/>
-        The venue has asked to please not be contacted, so please let us know if you have any questions.
+        The price includes your Accommodation, Welcome Dinner, Breakfast on Saturday and the Farewell Breakfast. <br/>
+        The venue has requested not to be contacted directly, so please let us know if you have any questions.
     </p>`)
 }
 

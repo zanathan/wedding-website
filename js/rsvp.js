@@ -264,7 +264,7 @@ var data_div = function (valid_data){
 
     innerHtml += `<div class="col-md-10 col-md-offset-1">
                         <h3>Share a Memory</h3>
-                        <p>We'd love to include you in our photo collection! Please send us a photo on WhatsApp or email of you with either one (or both) of us — it can be a favourite memory, a funny moment, or just a snap you love.<p>
+                        <p>We'd love to include you in our photo collection! Please send us a photo on WhatsApp or email zanathanjulyan@gmail.com of you with either one (or both) of us — it can be a favourite memory, a funny moment, or just a snap you love.<p>
                     </div>
                     <button type="button" id="button-0" class="btn-fill rsvp-submission-btn" onclick="on_data_submit()">
                         Submit
@@ -429,7 +429,6 @@ var on_data_submit = function (e) {
                     dict[title] = elements[i].checked;
                 }
                 else if(title === 'age'){
-                    console.log('age', elements[i].value)
                     if(elements[i].value){
                         dict['under_age']=true;
                     }
