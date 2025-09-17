@@ -508,14 +508,16 @@ var on_data_submit = function (e) {
 var validate_selection = function(rsvp_data){
     for (var i = 0; i < rsvp_data.rsvps.length; i++){
         var rsvp = rsvp_data.rsvps[i];
-        if(rsvp.rsvp !== true && rsvp.declined !== true){
-            return false;
-        }
-        if(rsvp.accommodation !== true && rsvp.no_accommodation !== true && rsvp.pre_wedding_dinner !== true && rsvp.post_wedding_breakfast !== true && rsvp.not_attending_other_events !== true ){
-            return false;
-        }
-        if(rsvp.dietry_requirements === ''){
-            return false;
+        if(rsvp.declined !== true){
+            if(rsvp.rsvp !== true){
+                return false;
+            }
+            if(rsvp.accommodation !== true && rsvp.no_accommodation !== true && rsvp.pre_wedding_dinner !== true && rsvp.post_wedding_breakfast !== true && rsvp.not_attending_other_events !== true ){
+                return false;
+            }
+            if(rsvp.dietry_requirements === ''){
+                return false;
+            }
         }
     } 
     for (var i = 0; i < rsvp_data.plus_ones.length; i++){
